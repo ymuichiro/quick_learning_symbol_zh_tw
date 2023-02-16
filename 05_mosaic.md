@@ -157,7 +157,7 @@ await txRepo.announce(signedTx).toPromise();
 要傳輸 XYM，請指定以下馬賽克 ID。
 
 - 主網：6BED913FA20223F8
-- 測試網t：3A8416DB2D53B6C8
+- 測試網：3A8416DB2D53B6C8
 
 #### 帳戶
 所有小數點也指定為整數。
