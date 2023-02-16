@@ -18,10 +18,10 @@
 
 ### [3.帳戶](./03_account.md)
 
-- [3.1 帳戶](03_account.md#31-Creating an account)
-- [3.2 將資產轉移至另一個帳戶](03_account.md#32-A TransferTransaction to another account)
-- [3.3 查看帳戶訊息](03_account.md#33-Check account information)
-- [3.4 使用提示](https://github.com/xembook/quick_learning_symbol/blob/main/03_account.md#34-%E7%8F%BE%E5%A0%B4%E3%81%A7%E4%BD%BF%E3%81%88%E3%82%8B%E3%83%92%E3%83%B3%E3%83%88)
+- [3.1 帳戶](https://github.com/ymuichiro/quick_learning_symbol_zh_tw/blob/main/03_account.md)
+- [3.2 將資產轉移至另一個帳戶](https://github.com/ymuichiro/quick_learning_symbol_zh_tw/blob/main/03_account.md)
+- [3.3 查看帳戶訊息](https://github.com/ymuichiro/quick_learning_symbol_zh_tw/blob/main/03_account.md)
+- [3.4 使用提示](https://github.com/ymuichiro/quick_learning_symbol_zh_tw/blob/main/03_account.md)
 
 ### [4.交易](./04_transaction.md)
 
