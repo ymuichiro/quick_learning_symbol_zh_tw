@@ -1,47 +1,47 @@
-# 2.Building a development environment
+# 2.建立開發環境
 
-This section explains how to read this document.
+這個章節說明如何閱讀本文件。
 
-## 2.1 Language
+## 2.1 語言
 
-All code will be written in JavaScript.
+所有的程式碼都將使用 JavaScript 撰寫。
 
-### SDK
+### SDK-軟體開發套件
 
 symbol-sdk-typescript-javascript v2.0.0  
 https://github.com/symbol/symbol-sdk-typescript-javascript
 
-Load The SDK above as browserify in the browser developer console.  
+在瀏覽器的開發人員控制台中，將上面的 SDK 作為 Browserify 載入。
 https://github.com/xembook/nem2-browserify
 
-##### Note
+##### 注意事項
 
-Currently symbol-sdk v3.0.0 is released in alpha version, v 2.0.3 is deprecated.  
-And version 3 removed many of the rxjs-dependent features thus direct access to the REST API is recommended.
+目前 symbol-sdk 的 alpha 版本是 3.0.0，2.0.3 版本已不再支援。
+版本 3 移除了許多 rxjs 依賴的功能，因此建議直接存取 REST API。
 
-### Reference
+### 參考文獻
 
-Symbol SDK for TypeScript and JavaScript  
+Symbol SDK 支援 TypeScript 和 JavaScript
 https://symbol.github.io/symbol-sdk-typescript-javascript/1.0.3/
 
-Catapult REST Endpoints (1.0.3)  
+Catapult REST端點 (1.0.3)
 https://symbol.github.io/symbol-openapi/v1.0.3/
 
-## 2.2 Sample source code
+## 2.2 範例原始碼
 
-### Variable declaration
+### 變數宣告
 
-In this document, we do not declare const because we want you to rewrite it repeatedly on the console to verify that it works. When developing applications, ensure security by declaring const.
+本文件中，我們沒有宣告 const，是希望您在控制台上重複編寫它以驗證其是否正常運作。當開發應用程序時，請通過聲明 const 確保安全性。
 
-### Check output value
+### 檢查輸出值
 
-Console.log() outputs the contents of the variable. Try out the output functions according to your preferences. The output is described under `>`. When practicing with a sample, try it without this part.
+Console.log() 會輸出該變數的內容。依照個人偏好，可以試著使用輸出函數。輸出結果會在 > 下方。在練習範例時，可以不包含這部分的內容。
 
-### Synchronous and asynchronous
+### 同步和非同步
 
-Some developers used to other languages may feel uneasy writing asynchronous processing, so unless there is a particular reason, the explanations are written without asynchronous processing.
+有些習慣於其他語言的開發者可能會因為不習慣寫非同步處理而感到不安，因此除非有特殊需求，本文中的解釋都是不使用非同步處理的。
 
-### Account
+### 帳戶
 
 #### Alice
 
