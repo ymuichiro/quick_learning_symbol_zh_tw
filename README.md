@@ -44,7 +44,7 @@
 - [6.1 手續費計算](06_namespace.md#61-%E6%89%8B%E6%95%B0%E6%96%99%E3%81%AE%E8%A8%88%E7%AE%97)
 - [6.2 租賃](06_namespace.md#62-%E3%83%AC%E3%83%B3%E3%82%BF%E3%83%AB)
 - [6.3 鏈接](06_namespace.md#63-%E3%83%AA%E3%83%B3%E3%82%AF)
-- [6.4 Use as an UnresolvedAccount](06_namespace.md#64-%E6%9C%AA%E8%A7%A3%E6%B1%BA%E3%81%A7%E4%BD%BF%E7%94%A8)
+- [6.4 未解析的帳戶形式](06_namespace.md#64-%E6%9C%AA%E8%A7%A3%E6%B1%BA%E3%81%A7%E4%BD%BF%E7%94%A8)
 - [6.5 引用](06_namespace.md#65-%E5%8F%82%E7%85%A7)
 - [6.6 使用提示](06_namespace.md#66-%E7%8F%BE%E5%A0%B4%E3%81%A7%E4%BD%BF%E3%81%88%E3%82%8B%E3%83%92%E3%83%B3%E3%83%88)
 
