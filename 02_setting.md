@@ -45,26 +45,26 @@ Console.log() 會輸出該變數的內容。依照個人偏好，可以試著使
 
 #### Alice
 
-This manual focuses on the Alice account. We will continue to use the Alice account created in chapter 3 in subsequent chapters. Please go on reading this manual with sufficient XYM sent.
+本手冊著重於介紹 Alice 帳戶。我們將在後續章節中繼續使用第三章中創建的 Alice 帳戶。請確保 Alice 帳戶中有足夠的 XYM，然後繼續閱讀本手冊。
 
 #### Bob
 
-Bob is created as an account for transacting with Alice, as required in the chapters. Others, such as Carol, are used in the multisig chapters.
+Bob 被創建成為與 Alice 進行交易所需的帳戶，作為後續章節中的對象。其他人，例如 Carol，在多簽章節中使用。
 
-### Fee
+### 手續費
 
-In this document, transactions are created with a transaction fee multiplier of 100.
+在本文件中，交易使用的交易費用乘數為 100。
 
-## 2.3 Preparations in advance
+## 2.3 事先準備工作
 
-From the node list, open the page of any node with e.g. Chrome browser. This manual is based on the assumption of a testnet.
+從節點清單中，使用 Chrome 瀏覽器打開任何節點的頁面。本手冊基於測試網的假設。
 
-- Testnet
+- 測試網
   - https://symbolnodes.org/nodes_testnet/
-- Mainnet
+- 主網
   - https://symbolnodes.org/nodes/
 
-Press F12 to open the developer console, and enter the following script.
+按 F12 鍵開啟開發人員控制台，並輸入以下腳本。
 
 ```js
 (script = document.createElement("script")).src =
@@ -72,7 +72,7 @@ Press F12 to open the developer console, and enter the following script.
 document.getElementsByTagName("head")[0].appendChild(script);
 ```
 
-Then, run the common logic that is used in almost all chapters.
+然後，運行在幾乎所有章節中使用的通用邏輯。
 
 ```js
 NODE = window.origin; //The URL of the page is shown here.
@@ -92,7 +92,7 @@ function clog(signedTx) {
 }
 ```
 
-You are now ready to go.
-If the content of this manual is a little confusing, please refer to the Qiita article.
+您現在已經準備就緒。
+如果本手冊的內容有些令人困惑，請參考 Qiita 的文章。
 
-[Symbol ブロックチェーンのテストネットで送金を体験する](https://qiita.com/nem_takanobu/items/e2b1f0aafe7a2df0fe1b)
+在Symbol區塊鏈測試網體驗轉帳的過程](https://qiita.com/nem_takanobu/items/e2b1f0aafe7a2df0fe1b)
