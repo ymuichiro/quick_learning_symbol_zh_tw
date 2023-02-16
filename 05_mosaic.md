@@ -45,7 +45,7 @@ divisibility:0 = 1
 divisibility:1 = 1.0  
 divisibility:2 = 1.00  
 
-#### Duration
+#### 持續時間
 
 如果指定為 0，則不能再細分為更小的單元。
 如果設置了馬賽克有效期，有效期過後數據不會消失。
