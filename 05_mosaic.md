@@ -1,14 +1,14 @@
-# 5. Mosaics
+# 5. 馬賽克
 
-This chapter describes the Mosaic settings and how they are generated.
-In Symbol, a token is called as a Mosaic.
+本章介紹 Mosaic 設置及其生成方式。
+在 Symbol 中，令牌被稱為馬賽克。
 
-> According to Wikipedia, Tokens are 'objects of various shapes made of clay with a diameter of around 1 cm, excavated from Mesopotamian strata from around 8000 BC to 3000 BC'. On the other hand, mosaic,  is "a technique of decorative art in which small pieces are assembled and embedded to form a picture (image) or pattern. Stone, ceramics (mosaic tiles), coloured and colourless glass, shells and wood are used to decorate the floors and walls of buildings or crafts.".
-In Symbol, mosaics can be thought of as the various components that represent aspects of the ecosystem created by the Symbol blockchain.
+根據維基百科的描述，令牌（Token）是“各種形狀的泥製品，直徑約為1厘米，出土於公元前8000年至公元前3000年的美索不達米亞層。”另一方面，馬賽克（Mosaic）是“一種裝飾藝術技巧，通過將小塊材料組裝嵌入以形成圖像或圖案。石材、陶瓷（馬賽克瓷磚）、有色和無色玻璃、貝殼和木材用於裝飾建築或工藝品的地面和牆壁。”
+在 Symbol 中，馬賽克可以被認為是代表 Symbol 區塊鏈創建的生態系統各個方面的各種組件。
 
-## 5.1 Mosaic generation
+## 5.1 馬賽克生成
 
-For mosaic generation, define the mosaic to be created.
+對於馬賽克生成，定義要創建的馬賽克。
 ```js
 supplyMutable = true; //Availability of supply changes
 transferable = false; //Transferability to third parties
@@ -27,19 +27,19 @@ mosaicDefTx = sym.MosaicDefinitionTransaction.create(
 );
 ```
 
-MosaicFlags are as follows.
+馬賽克標誌如下。
 
 ```js
 MosaicFlags {
   supplyMutable: false, transferable: false, restrictable: false, revokable: false
 }
 ```
-Permissions of supply changes, transferability to third parties, application of Mosaic Global Restrictions and revocability from the issuer can be specified.
-Once set these properties cannot be changed at a later date.
+可以指定供應變更的許可、向第三方的可轉讓性、Mosaic 全球限制的應用和發行人的可撤銷性。
+一旦設置這些屬性，以後就不能更改。
 
-#### Divisibility
+#### 可分割性
 
-Divisibility determines to what number of decimal places the quantity can be measured. Data is held as integer values.
+可被整除性（Divisibility）決定了可以測量數量的小數位數。數據以整數值保存。
 
 divisibility:0 = 1  
 divisibility:1 = 1.0  
@@ -47,12 +47,12 @@ divisibility:2 = 1.00
 
 #### Duration
 
-If specified as 0, it cannot be subdivided into smaller units.
-If a mosaic expiry date is set, the data will not disappear after the expiry date.
-Please note that you can own up to 1,000 mosaics per account.
+如果指定為 0，則不能再細分為更小的單元。
+如果設置了馬賽克有效期，有效期過後數據不會消失。
+請注意，每個帳戶最多可以擁有 1,000 個馬賽克。
 
 
-Next, change the quantity.
+接下來，更改數量。
 ```js
 //Mosaic change
 mosaicChangeTx = sym.MosaicSupplyChangeTransaction.create(
@@ -63,16 +63,16 @@ mosaicChangeTx = sym.MosaicSupplyChangeTransaction.create(
     networkType
 );
 ```
-If supplyMutable:false, the quantity can only be changed if the entire supply of the mosaic is in the issuers account.
-If divisibility > 0, define it as an integer value with the smallest unit being 1.
-（Specify 100 if you want to create 1.00 with divisibility:2）
+如果supplyMutable:false，只有當整個馬賽克的供應量在發行者的賬戶中時，數量才能被更改。 .
+如果整除率 > 0，則將其定義為最小單位為 1 的整數值。
+（如果要創建 1.00 可整除性，請指定 100：2）
 
-MosaicSupplyChangeAction is as follows.
+馬賽克供應量更改操作如下所示。
 ```js
 {0: 'Decrease', 1: 'Increase'}
 ```
-Specify Increase if you want to increase it.
-Merge two transactions above into an aggregate transaction.
+如果要增加它，請指定增加。
+將上面的兩個事務合併成一個聚合事務。
 
 ```js
 aggregateTx = sym.AggregateTransaction.createComplete(
@@ -87,12 +87,12 @@ signedTx = alice.sign(aggregateTx,generationHash);
 await txRepo.announce(signedTx).toPromise();
 ```
 
-Note that a feature of the aggregate transaction is that it attempts to change the quantity of a mosaic that does not yet exist.
-When arrayed, if there are no inconsistencies, they can be handled without problems within a single block.
+請注意，聚合交易的一個特點是它會嘗試更改尚不存在的馬賽克的數量。
+排列時，如果沒有不一致，則可以在單個塊內毫無問題的處理它們。
 
 
-### Confirmation
-Confirm the mosaic information held by the account which created the mosaic.
+### 確認
+確認創建馬賽克的賬戶持有的馬賽克信息。
 
 ```js
 mosaicRepo = repo.createMosaicRepository();
@@ -101,7 +101,7 @@ accountInfo.mosaics.forEach(async mosaic => {
   console.log(mosaicInfo);
 });
 ```
-###### Sample output
+###### 示例演示
 ```js
 > MosaicInfo {version: 1, recordId: '622988B12A6128903FC10496', id: MosaicId, supply: UInt64, startHeight: UInt64, …}
 > MosaicInfo
@@ -119,11 +119,11 @@ accountInfo.mosaics.forEach(async mosaic => {
     supply: UInt64 {lower: 1000000, higher: 0} //Total supply
 ```
 
-## 5.2 Mosaic transfer
+## 5.2 馬賽克轉移
 
-Transfer the created mosaic.
-Those new to blockchain often imagine mosaic transferring as "sending a mosaic stored on a client terminal to another client terminal", but mosaic information is always shared and synchronised across all nodes, and it is not about transferring mosaic information to the destination. 
-More precisely, it refers to the operation of recombining token balances between accounts by 'sending transactions' to the blockchain.
+傳輸創建的馬賽克。
+剛接觸區塊鏈的人常常把馬賽克傳輸想像成“將存儲在一個客戶端的馬賽克發送到另一個客戶端”，但馬賽克信息始終在所有節點之間共享和同步，而不是將馬賽克信息傳輸到目的地。
+更準確地說，它是指通過向區塊鏈“發送交易”來重新組合賬戶之間代幣餘額的操作。
 
 ```js
 //Creating a receiving account
@@ -151,25 +151,25 @@ await txRepo.announce(signedTx).toPromise();
 
 
 
-##### Transfer a list of mosaics
+##### 傳輸馬賽克列表
 
-Multiple mosaics can be transferred in a single transaction.
-To transfer XYM, specify the following mosaic ID.
+可以在單個事務中傳輸多個馬賽克。
+要傳輸 XYM，請指定以下馬賽克 ID。
 
-- Mainnet：6BED913FA20223F8
-- Testnet：3A8416DB2D53B6C8
+- 主網：6BED913FA20223F8
+- 測試網t：3A8416DB2D53B6C8
 
-#### Amount
-All decimal points are also specified as integers.
-XYM is divisibility 6, so it is specified as 1XYM=1000000.
+#### 帳戶
+所有小數點也指定為整數。
+XYM 可整除 6，因此指定為 1XYM=1000000。
 
-### Confirmation of transaction
+### 交易確認
 
 ```js
 txInfo = await txRepo.getTransaction(signedTx.hash,sym.TransactionGroup.Confirmed).toPromise();
 console.log(txInfo); 
 ```
-###### Sample output
+###### 示例演示
 ```js
 > TransferTransaction
     deadline: Deadline {adjustedValue: 12776690385}
@@ -198,27 +198,27 @@ console.log(txInfo);
     type: 16724
     version: 1
 ```
-It can be seen that two types of mosaics have been transferred in the Mosaic of the TransferTransaction. You can also find information on the approved blocks in the TransactionInfo.
+可以看到在TransferTransaction的馬賽克中轉了兩種類型的馬賽克。 您還可以在 TransactionInfo 中找到有關已批准區塊的信息。
 
-## 5.3 Tips for use
+## 5.3 使用提示
 
-### Proof of existence
+### 存在證明
 
-Proof of existence by transaction was explained in the previous chapter.
-The transferring instructions created by an account can be left as an indelible record, so that a ledger can be created that is absolutely consistent.
-As a result of the accumulation of 'absolute, indelible transaction instructions' for all accounts, each account can prove its own mosaic ownership.
-As a result of the accumulation of 'indelible transaction instructions' for all accounts, each account can prove its own mosaic ownership.
-(In this document, possession is defined as "the state of being able to give it up at will". Slightly off topic, but the meaning of 'state of being able to give it up at will' may make sense if you look at the fact that ownership is not legally recognised for digital data, at least in Japan yet, and that once you know the data, you cannot prove to others that you have forgotten it of your own will. The blockchain allows you to clearly indicate the relinquishment of that data, but I'll leave the details to the legal experts.)
+上一章解釋了交易的存在證明。
+一個賬戶創建的轉賬指令可以作為不可磨滅的記錄留下，這樣就可以創建一個絕對一致的賬本。
+由於為所有賬戶累積了“絕對的、不可磨滅的交易指令”，因此每個賬戶可以證明自己擁有的馬賽克。
+由於為所有賬戶累積了“不可磨滅的交易指令”，因此每個賬戶可以證明自己擁有的馬賽克。
+（在本文檔中，擁有被定義為“有能力隨意放棄的狀態”。稍微離題，但“有能力隨意放棄的狀態”的意義在於，數字數據的所有權至少在日本尚未得到法律承認，而一旦您知道了這些數據，就無法向他人證明您已經自願遺忘了它。區塊鏈允許您清楚地指示放棄這些數據，但我將把詳細信息留給法律專家。）
 
-#### NFT (non fungible token)
+#### NFT (非同質化代幣)
 
-By limiting the number of tokens total supply to 1 and setting supplyMutable to false, only one token can be issued and no more can ever exist.
+通過將代幣總供應量限制為 1 並將 supplyMutable 設置為 false，只能發行一個代幣，並且永遠不會再存在。
 
-Mosaics store information about the account address that issued the mosaic and this data cannot be tampered with. Therefore, transactions from the account that issued the mosaic can be treated as metadata.
+馬賽克存儲有關發出馬賽克的帳戶地址的信息，並且該數據不能被篡改。 因此，來自發出馬賽克的賬戶的交易可以被視為元數據。
 
-Note that there is also a way to register metadata to the mosaic, described in Chapter 7, which can be updated by the multi signature of the registered account and the mosaic issuer.
+請注意，還有一種方法可以將元數據註冊到 馬賽克，如第 7 章所述，可以通過註冊帳戶和 馬賽克 發布者的多重簽名來更新。
 
-There are many ways to create NFTs, an example of the process is given below (please set the nonce and flag information appropriately for execution).
+創建 NFT 的方法有很多種，下面給出了一個過程示例（執行時請適當設置 nonce 和 flag 信息）。
 ```js
 supplyMutable = false; //Availability of supply changes
 //Mosaic definition
@@ -256,20 +256,20 @@ aggregateTx = sym.AggregateTransaction.createComplete(
 ).setMaxFeeForAggregate(100, 0);
 ```
 
-The block height and creation account at the time of mosaic generation are included in the mosaic information, so by searching for transactions in the same block, the NFT data associated with the mosaic can be retrieved.
-The NFT data associated with the transactions in the same block can be retrieved.
+馬賽克信息中包含馬賽克生成時的區塊高度和創建賬戶，因此通過搜索同一區塊內的交易，可以檢索到與馬賽克關聯的NFT數據。
+可以檢索與同一塊中的交易關聯的 NFT 數據。
 
 
-##### Note
-In case that the creator of the mosaic owns the entire quantity, the total supply can be changed.
-If the data is split into transactions and recorded, it cannot be tampered with, but data can be appended.
-When managing an NFT, please take care to manage it appropriately, for example by strictly managing or discarding the mosaic creator's private key.
+##### 注意事項
+如果馬賽克的創建者擁有全部數量，則可以更改總供應量。
+如果將數據拆分成交易記錄，則不可篡改，但可以追加數據。
+在管理 NFT 時，請注意妥善管理，例如嚴格管理或丟棄馬賽克創建者的私鑰。
 
 
-#### Revocable point service operations.
+#### 可撤銷的積分服務操作。
 
-Setting transferable to false restricts resale, making it possible to define points that are less susceptible to the act on settlement laws or regulations.
-Setting revokable to true enables centrally managed point service operations where the user does not need to manage the private key to collect the amount used.
+將 transferable 設置為 false 可以限制轉售，使得可以定義出更不易受到結算法律或規定影響的積分。
+將 revokable 設置為 true 可以啟用集中管理的積分服務操作，用戶無需管理私鑰即可收集使用的金額。
 
 ```js
 transferable = false; //Transferability to third parties
