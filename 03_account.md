@@ -1,29 +1,29 @@
-# 3.Account
+# 3.帳戶
 
-An account is a data deposit structure in which information and assets associated with a private key is recorded. Only by signing with the private key associated with the account is the data updated on the blockchain.
+帳戶是一種資料存款結構，其中包含與私鑰相關聯的資訊和資產的記錄。只有使用與帳戶相關聯的私鑰進行簽署，才能在區塊鏈上更新資料。
 
-## 3.1 Creating an account
+## 3.1 創建帳戶
 
-The account contains a key pair, which is a set of private and public keys, an address and other information. First of all, try creating an account  randomly and check the information that is contained.  
+帳戶包含一對密鑰，即私鑰和公鑰，以及地址和其他信息。首先，嘗試隨機創建一個帳戶，並檢查其中包含的信息。
 
-### Create a new account 
+### 創建一個新帳戶 
 ```js
 alice = sym.Account.generateNewAccount(networkType);
 console.log(alice);
 ```
-###### Sample output
+###### 示例輸出
 ```js
 > Account
     address: Address {address: 'TBXUTAX6O6EUVPB6X7OBNX6UUXBMPPAFX7KE5TQ', networkType: 152}
     keyPair: {privateKey: Uint8Array(32), publicKey: Uint8Array(32)}
 ```
 
-networkType is the following.
+網絡類型如下。
 ```js
 {104: 'MAIN_NET', 152: 'TEST_NET'}
 ```
 
-### Deriving private and public key.
+### 生成公鑰和私鑰
 ```js
 console.log(alice.privateKey);
 console.log(alice.publicKey);
@@ -33,12 +33,12 @@ console.log(alice.publicKey);
 > D4933FC1E4C56F9DF9314E9E0533173E1AB727BDB2A04B59F048124E93BEFBD2
 ```
 
-#### Notes
-If the private key is lost, the data associated with that account can never be changed and any funds will be lost. In addition, the private key must not be shared with others since knowledge of the private key will give full access to the account. 
-In general web services, passwords are allocated to an "account ID", so passwords can be changed from the account, but in blockchain, a unique ID (address) is allocated to the private key that is the password, thus it is not possible to change or re-generate the private key associated with an account from the account.  
+#### 注意事項
+如果私鑰遺失，與該帳戶相關的數據將無法更改，並且任何資金將會遺失。此外，私鑰不得與他人分享，因為知道私鑰將可完全存取該帳戶。 
+在一般的網路服務中，密碼是分配給「帳戶 ID」的，因此密碼可以從帳戶更改，但在區塊鏈中，私鑰是密碼，因此唯一的 ID（位址）會分配給私鑰，因此無法從帳戶更改或重新產生與帳戶關聯的私鑰。  
 
 
-### Deriving of address
+### 產生位址
 ```js
 aliceRawAddress = alice.address.plain();
 console.log(aliceRawAddress);
@@ -47,9 +47,9 @@ console.log(aliceRawAddress);
 > TBXUTAX6O6EUVPB6X7OBNX6UUXBMPPAFX7KE5TQ
 ```
 
-These things above are the most basic information for operating the blockchain. It is also better to check how to generate accounts from a private key and how to generate classes that only deal with publickey and addresses.  
+以上這些是操作區塊鏈所需的最基本信息。建議進一步瞭解如何從私鑰生成帳戶，以及如何生成僅處理公鑰和位址的類別。
 
-### Account generation from private key.
+### 從私鑰生成帳戶
 ```js
 alice = sym.Account.createFromPrivateKey(
   "1E9139CC1580B4AED6A1FE110085281D4982ED0D89CE07F3380EB83069B1****",
@@ -57,7 +57,7 @@ alice = sym.Account.createFromPrivateKey(
 );
 ```
 
-### Public key class generation
+### 公鑰類別的生成
 ```js
 alicePublicAccount = sym.PublicAccount.createFromPublicKey(
   "D4933FC1E4C56F9DF9314E9E0533173E1AB727BDB2A04B59F048124E93BEFBD2",
@@ -65,7 +65,7 @@ alicePublicAccount = sym.PublicAccount.createFromPublicKey(
 );
 console.log(alicePublicAccount);
 ```
-###### Sample output
+###### 示例輸出
 ```js
 > PublicAccount
     address: Address {address: 'TBXUTAX6O6EUVPB6X7OBNX6UUXBMPPAFX7KE5TQ', networkType: 152}
@@ -73,37 +73,37 @@ console.log(alicePublicAccount);
 
 ```
 
-### Address class generation
+### 地址類生成
 ```js
 aliceAddress = sym.Address.createFromRawAddress(
   "TBXUTAX6O6EUVPB6X7OBNX6UUXBMPPAFX7KE5TQ"
 );
 console.log(aliceAddress);
 ```
-###### Sample output
+###### 示例輸出
 ```js
 > Address
     address: "TBXUTAX6O6EUVPB6X7OBNX6UUXBMPPAFX7KE5TQ"
     networkType: 152
 ```
 
-## 3.2 A TransferTransaction to another account
+## 3.2 轉帳交易到另一個帳戶
 
-Creating an account does not simply mean that data can be transferred on the blockchain.  
-Public blockchains require fees for data transfer in order to utilise resources effectively.  
-On the Symbol blockchain, fees are paid with a native token which is called XYM.  
-Once you have generated an account, send XYM to the account to cover transaction fees (described in later chapters).   
+創建賬戶並不僅僅意味著數據可以在區塊鏈上傳輸。
+公共區塊鏈需要數據傳輸費用才能有效利用資源。 
+在 Symbol 區塊鏈上，使用稱為 XYM 的原生代幣支付費用。
+生成帳戶後，將 XYM 發送到該帳戶以支付交易費用（在後面的章節中描述）。
 
-### Receive XYM from the faucet
+### 從水龍頭接收 XYM
 
-Testnet XYM can be obtained for free using the faucet.  
-For Mainnet transactions, you can buy XYM on exchanges, or use tipping services such as NEMLOG and QUEST to have obtain donations.   
+可以使用水龍頭免費獲得測試網 XYM。  
+對於主網交易，可以在交易所購買XYM，也可以使用NEMLOG、QUEST等打賞服務獲得捐款。 
 
-Testnet
+測試網
 - FAUCET
   - https://testnet.symbol.tools/
 
-Mainnet
+主網
 - NEMLOG
   - https://nemlog.nem.social/
 - QUEST
@@ -111,27 +111,27 @@ Mainnet
 
 
 
-### Using the explorer
+### 使用區塊鏈瀏覽器
 
-Transactions can be viewed in the explorer after transferring from the faucet to the account you have created.
+從水龍頭轉賬到您創建的賬戶後，可以在瀏覽器中查看交易。
 
-- Testnet
+- 測試網
   - https://testnet.symbol.fyi/
-- Mainnet
+- 主網
   - https://symbol.fyi/
 
-## 3.3 Check account information
+## 3.3 查看賬戶信息
 
-Retrieve the account information stored by the node.
+檢索節點存儲的帳戶信息
 
-### Retrieve a list of owned mosaics
+### 檢索擁有的馬賽克列表
 
 ```js
 accountRepo = repo.createAccountRepository();
 accountInfo = await accountRepo.getAccountInfo(aliceAddress).toPromise();
 console.log(accountInfo);
 ```
-###### Sample output
+###### 示例輸出
 ```js
 > AccountInfo
     address: Address {address: 'TBXUTAX6O6EUVPB6X7OBNX6UUXBMPPAFX7KE5TQ', networkType: 152}
@@ -143,11 +143,11 @@ console.log(accountInfo);
           id: Id {lower: 760461000, higher: 981735131}
 ```
 
-#### publicKey
-Account information which has just been created on the client side and has not yet been involved in a transaction on the blockchain is not recorded. Account information will be stored on the blockchain when when the address first appears in a transaction. Therefore, the publicKey is noted as `00000...` at this moment.
+#### 公鑰
+客戶端剛剛創建的、尚未參與區塊鏈交易的賬戶信息不被記錄。 當地址首次出現在交易中時，帳戶信息將存儲在區塊鏈上。 因此，此時 publicKey 記為“00000...”。
 
 #### UInt64
-JavaScript will overflow when numbers are too large, so ID and amount are managed in the SDK's own format called UInt64. Use toString() to convert to string, compact() to convert to number and toHex()  to convert to a hexadecimal.
+當數字太大時，JavaScript會溢出，因此ID和金額以UInt64的格式在SDK中進行管理。使用toString()將其轉換為字符串，使用compact()將其轉換為數字，使用toHex()將其轉換為十六進制。
 
 ```js
 console.log("addressHeight:"); //Block height at which the address is recorded
@@ -158,13 +158,14 @@ accountInfo.mosaics.forEach(mosaic => {
 });
 ```
 
-Inverting an ID value that is too large into a numerical value with COMPACT may result in an error.  
+使用COMPACT將一個太大的ID值反轉為數值時，可能會導致錯誤。
 `Compacted value is greater than Number.Max_Value.`
 
 
-#### Adjustment of display digits
+#### 顯示位數的調整
 
-Treating the amount of owned tokens as an integer value to avoid rounding errors. We can get the divisibility from the token definition, so we can use that value to display the exact amount of owned tokens.  
+將擁有的代幣數量作為整數值處理，以避免出現舍入誤差。我們可以從代幣定義中獲取可分割性(divisibility)，因此可以使用該值顯示所擁有的代幣的精確數量。
+
 
 ```js
 mosaicRepo = repo.createMosaicRepository();
@@ -180,20 +181,20 @@ if(divisibility > 0){
 console.log(displayAmount);
 ```
 
-## 3.4 Tips for use
-### Encryption and signatures
+## 3.4 使用提示
+### 加密和簽名
 
-Both private and public keys generated for an account can be used for conventional encryption and digital signatures. Data confidentiality and legitimacy can be verified on a p2p (end-to-end) basis, even if applications have reliability issues.   
+為帳戶生成的私鑰和公鑰均可用於常規加密和數字簽名。 即使應用程序存在可靠性問題，也可以在 p2p（端到端）的基礎上驗證數據的機密性和合法性。  
 
-#### Advance preparation: generating Bob account for connectivity test
+#### 預先準備：為連通性測試生成Bob帳戶
 ```js
 bob = sym.Account.generateNewAccount(networkType);
 bobPublicAccount = bob.publicAccount;
 ```
 
-#### Encryption
+#### 加密
 
-Encrypt with Alice's private key and Bob's public key and decrypt with Alice's public key and Bob's private key (AES-GCM format).
+用Alice的私鑰和Bob的公鑰加密，用Alice的公鑰和Bob的私鑰解密（AES-GCM格式）。
 
 ```js
 message = 'Hello Symol!';
@@ -204,7 +205,7 @@ console.log(encryptedMessage);
 > 294C8979156C0D941270BAC191F7C689E93371EDBC36ADD8B920CF494012A97BA2D1A3759F9A6D55D5957E9D
 ```
 
-#### Decrypt
+#### 解密
 ```js
 decryptMessage = bob.decryptMessage(
   new sym.EncryptedMessage(
@@ -218,9 +219,9 @@ console.log(decryptMessage);
 > "Hello Symol!"
 ```
 
-#### Signature
+#### 簽名
 
-Sign the message with Alice's private key and verify the message with Alice's public key and signature.
+使用 Alice 的私鑰對消息進行簽名，並使用 Alice 的公鑰和簽名驗證消息。
 
 ```js
 Buffer = require("/node_modules/buffer").Buffer;
@@ -232,7 +233,7 @@ console.log(signature);
 > B8A9BCDE9246BB5780A8DED0F4D5DFC80020BBB7360B863EC1F9C62CAFA8686049F39A9F403CB4E66104754A6AEDEF8F6B4AC79E9416DEEDC176FDD24AFEC60E
 ```
 
-#### Verification
+#### 驗證
 ```js
 isVerified = sym.KeyPair.verify(
   alice.keyPair.publicKey,
@@ -245,14 +246,14 @@ console.log(isVerified);
 > true
 ```
 
-Note that signatures that do not use the blockchain may be re-used many times.
+請注意，不使用區塊鏈的簽名可能會被多次重複使用。
 
-### Account management
+### 帳戶管理
 
-This section explains how to manage your account.  
-Private keys should not be stored as plaintext; here is how to encrypt and store your private key with a passphrase using symbol-qr-library.  
+本節介紹如何管理您的帳戶。 
+私鑰不應以純文本形式存儲。以下是使用symbol-qr-library對私鑰進行加密並使用密碼保護存儲的方法。 
 
-#### Encryption of private key
+#### 私鑰加密
 
 ```js
 qr = require("/node_modules/symbol-qr-library");
@@ -274,13 +275,13 @@ signerQR.toBase64().subscribe(x =>{
 jsonSignerQR = signerQR.toJSON();
 console.log(jsonSignerQR);
 ```
-###### Sample output
+###### 示例輸出
 ```js
 > {"v":3,"type":2,"network_id":152,"chain_id":"7FCCD304802016BEBBCD342A332F91FF1F3BB5E902988B352697BE245F48E836","data":{"ciphertext":"e9e2f76cb482fd054bc13b7ca7c9d086E7VxeGS/N8n1WGTc5MwshNMxUiOpSV2CNagtc6dDZ7rVZcnHXrrESS06CtDTLdD7qrNZEZAi166ucDUgk4Yst0P/XJfesCpXRxlzzNgcK8Q=","salt":"54de9318a44cc8990e01baba1bcb92fa111d5bcc0b02ffc6544d2816989dc0e9"}}
 ```
-The QR code or text output by this jsonSignerQR can be saved to recover the private key any time.
+此jsonSignerQR輸出的QR碼或文本可隨時保存，以便恢復私鑰。
 
-#### Decryption of encrypted private key
+#### 加密私鑰解密
 
 ```js
 //Assign stored text or text retrieved from a QR code scan into json signer QR
@@ -290,7 +291,7 @@ qr = require("/node_modules/symbol-qr-library");
 signerQR = qr.AccountQR.fromJSON(jsonSignerQR,"Passphrase");
 console.log(signerQR.accountPrivateKey);
 ```
-###### Sample output
+###### 示例輸出
 ```js
 > 1E9139CC1580B4AED6A1FE110085281D4982ED0D89CE07F3380EB83069B1****
 ```
