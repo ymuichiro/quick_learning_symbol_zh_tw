@@ -73,7 +73,7 @@ console.log(alicePublicAccount);
 
 ```
 
-### 地址類生成
+### 地址生成
 ```js
 aliceAddress = sym.Address.createFromRawAddress(
   "TBXUTAX6O6EUVPB6X7OBNX6UUXBMPPAFX7KE5TQ"
