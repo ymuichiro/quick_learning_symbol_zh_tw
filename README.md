@@ -1,22 +1,22 @@
-### Let's get started with a practical Symbol blockchain learning programme from today
+### 讓我們從今天開始進行一個實用的Symbol區塊鏈學習計畫
 
-# Quick learning Symbol
+# 快速學習 Symbol
 
-## Author
+## 作者
 
 ### XEMBook
 
-## Other language
+## 其他語言
 
 [Japanese](https://learn.ja.symbol-community.com)
 
-## Table of contents
+## 目錄
 
-### [1.Introduction](./01_introduction.md)
+### [1.簡介](./01_introduction.md)
 
-### [2.Building a development environment](./02_setting.md)
+### [2.建立開發環境](./02_setting.md)
 
-### [3.Account](./03_account.md)
+### [3.帳戶](./03_account.md)
 
 - [3.1 Account](03_account.md#31-Creating an account)
 - [3.2 A TransferTransaction to another account](03_account.md#32-A TransferTransaction to another account)
