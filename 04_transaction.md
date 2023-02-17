@@ -329,7 +329,7 @@ txes.forEach(tx => {
 ```js
 {0: 'PlainMessage', 1: 'EncryptedMessage', 254: 'PersistentHarvestingDelegationMessage', -1: 'RawMessage'}
 ```
-## 4.6 聚合交易。
+## 4.6 聚合交易
 
 聚合事務可以將多個事務合併為一個。
 Symbol 的公共網絡支持包含多達 100 個內部交易（涉及多達 25 個不同的聯署人）的聚合交易。
