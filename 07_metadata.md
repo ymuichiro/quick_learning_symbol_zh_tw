@@ -1,9 +1,9 @@
-# 7.Metadata
+# 7.元數據
 
-Key-Value format data can be registered for an account mosaic namespace. The maximum value of data that can be written is 1024 bytes.
-We make the assumption that both mosaic, namespace and account are created by Alice in this chapter.
+可以為帳戶鑲嵌命名空間註冊鍵值格式數據。 可寫入的數據的最大值為 1024 字節。
+本章我們假設 mosaic、namespace 和 account 都是 Alice 創建的。
 
-Before running the sample scripts in this chapter, please load the following libraries:
+在運行本章示例腳本之前，請加載以下庫：
 ```js
 metaRepo = repo.createMetadataRepository();
 mosaicRepo = repo.createMosaicRepository();
