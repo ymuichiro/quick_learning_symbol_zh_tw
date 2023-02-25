@@ -1,7 +1,7 @@
-# 11. Restrictions
+# 11. 限制
 
-This section describes restrictions on accounts and global restrictions on mosaics.
-In this chapter, we will restrict the permissions of existing accounts, so please create a new disposable account to try it out.
+本節介紹了有關帳戶的限制和對代幣進行全局限制的相關內容。
+在本章中，我們將限制現有帳戶的權限，請創建一個新的一次性帳戶來嘗試此操作。
 
 ```js
 //Generating disposable accounts Carol
@@ -16,9 +16,9 @@ console.log(
 );
 ```
 
-## 11.1 Account Restrictions
+## 11.1 帳戶限制
 
-### Specify addresses to restrict incoming and outgoing transactions
+### 指定地址以限制進出交易
 
 ```js
 bob = sym.Account.generateNewAccount(networkType);
@@ -35,20 +35,20 @@ signedTx = carol.sign(tx, generationHash);
 await txRepo.announce(signedTx).toPromise();
 ```
 
-For AddressRestrictionFlag is as follows.
+對於 AddressRestrictionFlag 設置如下。
 
 ```js
 {1: 'AllowIncomingAddress', 16385: 'AllowOutgoingAddress', 32769: 'BlockIncomingAddress', 49153: 'BlockOutgoingAddress'}
 ```
 
-In addition to AllowIncomingAddress, the following flags can be used for AddressRestrictionFlag.
+除了 AllowIncomingAddress 之外，可以使用以下的標誌(AddressRestrictionFlag)：
 
-- AllowIncomingAddress：Allowing incoming transactions only from specific addresses
-- AllowOutgoingAddress：Permitting outgoing transactions only to specific addresses
-- BlockIncomingAddress：Reject incoming transactions from designated addresses
-- BlockOutgoingAddress：Prohibit outgoing transactions to specific addresses
+- AllowIncomingAddress：僅允許來自特定地址的傳入交易
+- AllowOutgoingAddress：只允許傳出交易到特定地址
+- BlockIncomingAddress：拒絕來自指定地址的傳入交易
+- BlockOutgoingAddress：禁止向特定地址發出交易
 
-### Restrictions on receiving designated mosaics
+### 接收指定馬賽克的限制
 
 ```js
 mosaicId = new sym.MosaicId("72C0212E67A08BCE"); //Testnet XYM
@@ -64,19 +64,19 @@ signedTx = carol.sign(tx, generationHash);
 await txRepo.announce(signedTx).toPromise();
 ```
 
-MosaicRestrictionFlag is as follows.
+MosaicRestrictionFlag 設置如下。
 
 ```js
 {2: 'AllowMosaic', 32770: 'BlockMosaic'}
 ```
 
-- AllowMosaic：Allowing to receive only transactions containing the specified mosaic
-- BlockMosaic：Rejection of incoming transactions containing specified mosaics
+- AllowMosaic：只允許接收包含指定馬賽克的交易
+- BlockMosaic：拒絕包含指定馬賽克的傳入交易
 
-There is no restriction function for mosaic outgoing transactions.
-Please note that this should not to be confused with the global mosaic restriction, which restricts the behaviour of mosaics, described below.
+沒有專門限制 馬賽克 外發交易的功能。
+請注意，這與全局馬賽克限制不應混淆，該限制限制了馬賽克的行為，如下所述。
 
-### Restrictions on specified transactions
+### 特定交易的限制
 
 ```js
 tx =
@@ -91,33 +91,33 @@ signedTx = carol.sign(tx, generationHash);
 await txRepo.announce(signedTx).toPromise();
 ```
 
-OperationRestrictionFlag is as follows.
+OperationRestrictionFlag 設置如下。
 
 ```js
 {16388: 'AllowOutgoingTransactionType', 49156: 'BlockOutgoingTransactionType'}
 ```
 
-- AllowOutgoingTransactionType：Permit only for specified transaction types
-- BlockOutgoingTransactionType：Prohibit only for specified transaction types
+- AllowOutgoingTransactionType：只允許特定的交易類型
+- BlockOutgoingTransactionType：僅針對特定交易類型禁止
 
-There is no restriction function for transaction receipts. The operations that can be specified are as follows.
+交易收據無限制功能。 可以指定的操作如下。
 
-TransactionType is as follows.
+交易類型如下。
 
 ```js
 {16705: 'AGGREGATE_COMPLETE', 16707: 'VOTING_KEY_LINK', 16708: 'ACCOUNT_METADATA', 16712: 'HASH_LOCK', 16716: 'ACCOUNT_KEY_LINK', 16717: 'MOSAIC_DEFINITION', 16718: 'NAMESPACE_REGISTRATION', 16720: 'ACCOUNT_ADDRESS_RESTRICTION', 16721: 'MOSAIC_GLOBAL_RESTRICTION', 16722: 'SECRET_LOCK', 16724: 'TRANSFER', 16725: 'MULTISIG_ACCOUNT_MODIFICATION', 16961: 'AGGREGATE_BONDED', 16963: 'VRF_KEY_LINK', 16964: 'MOSAIC_METADATA', 16972: 'NODE_KEY_LINK', 16973: 'MOSAIC_SUPPLY_CHANGE', 16974: 'ADDRESS_ALIAS', 16976: 'ACCOUNT_MOSAIC_RESTRICTION', 16977: 'MOSAIC_ADDRESS_RESTRICTION', 16978: 'SECRET_PROOF', 17220: 'NAMESPACE_METADATA', 17229: 'MOSAIC_SUPPLY_REVOCATION', 17230: 'MOSAIC_ALIAS'}
 ```
 
-##### Note
+##### 參考資料
 
-17232: `ACCOUNT_OPERATION_RESTRICTION` restriction is not permitted.
-This means that if AllowOutgoingTransactionType is specified, ACCOUNT_OPERATION_RESTRICTION must be included, and
-If BlockOutgoingTransactionType is specified, ACCOUNT_OPERATION_RESTRICTION cannot be included.
+17232: 禁止使用ACCOUNT_OPERATION_RESTRICTION限制。
+這意味著如果指定了AllowOutgoingTransactionType，就必須包括ACCOUNT_OPERATION_RESTRICTION，
+而如果指定了BlockOutgoingTransactionType，就不能包括ACCOUNT_OPERATION_RESTRICTION。
 
 
-### Confirmation
+### 確認
 
-Check the information on the restrictions that you have set
+檢查有關您設置的限制的信息
 
 ```js
 resAccountRepo = repo.createRestrictionAccountRepository();
@@ -126,7 +126,7 @@ res = await resAccountRepo.getAccountRestrictions(carol.address).toPromise();
 console.log(res);
 ```
 
-###### Sample output
+###### 市例演示
 
 ```js
 > AccountRestrictions
@@ -143,13 +143,13 @@ console.log(res);
           0: Address {address: 'TCW2ZW7LVJMS4LWUQ7W6NROASRE2G2QKSBVCIQY', networkType: 152}
 ```
 
-## 11.2 Mosaic Global Restriction
+## 11.2 馬賽克全局限制
 
-Mosaic Global Restriction sets the conditions under which mosaics can be transferred.  
-Assigning to each account for numeric metadata dedicated to the mosaic global restriction.  
-The relevant mosaic can only be sent if both the incoming and outgoing accounts meet the conditions.
+代幣全局限制設置了轉移代幣的條件。
+為專用於馬賽克全局限制的數字元數據分配給每個帳戶。 
+相關馬賽克只有進出賬號都滿足條件才能發送.
 
-Firstly, setting up the necessary libraries.
+首先，設置必要的資料庫。
 
 ```js
 nsRepo = repo.createNamespaceRepository();
@@ -160,9 +160,9 @@ mosaicResService = new sym.MosaicRestrictionTransactionService(
 );
 ```
 
-### Creating mosaics with global restrictions
+### 創建具有全局限制的馬賽克
 
-Set restrictable to true to create a mosaic in Carol.
+將 restrictable 設置為 true 以在 Carol 中創建馬賽克。
 
 ```js
 supplyMutable = true; //Availability of changes in supply
@@ -218,7 +218,7 @@ signedTx = carol.sign(aggregateTx, generationHash);
 await txRepo.announce(signedTx).toPromise();
 ```
 
-MosaicRestrictionType is as follows.
+MosaicRestrictionType 如下。
 
 ```js
 {0: 'NONE', 1: 'EQ', 2: 'NE', 3: 'LT', 4: 'LE', 5: 'GT', 6: 'GE'}
@@ -233,12 +233,12 @@ MosaicRestrictionType is as follows.
 | >      | GT   | greater than             |
 | <=     | GE   | greater than or equal to |
 
-### Applying mosaic restrictions to accounts
+### 對帳戶應用馬賽克限制
 
-Add eligibility information against the Mosaic Global Restriction to Carol and Bob.  
-There are no restrictions on mosaics already owned, as these restrictions apply to incoming and outgoing transactions.  
-For a successful transfer, both sender and receiver must fulfil the conditions.  
-Restrictions can be placed on any account with the private key of the mosaic creator without requiring a signature of consent.
+將針對 Mosaic 全局限制的資格信息添加到 Carol 和 Bob。
+對已經擁有的馬賽克沒有限制，因為這些限制適用於傳入和傳出交易。 
+為了成功傳輸，發送方和接收方都必須滿足條件。  
+可以使用馬賽克創建者的私鑰對任何帳戶進行限制，無需簽名同意。
 
 ```js
 //Apply to Carol
@@ -269,9 +269,9 @@ signedTx = carol.sign(bobMosaicAddressResTx, generationHash);
 await txRepo.announce(signedTx).toPromise();
 ```
 
-### Confirmation of restriction status check
+### 確認限制狀態檢查
 
-Query the node to check its restriction status.
+查詢節點以檢查其限制狀態。
 
 ```js
 res = await resMosaicRepo
@@ -280,7 +280,7 @@ res = await resMosaicRepo
 console.log(res);
 ```
 
-###### Sample output
+###### 市例演示
 
 ```js
 > data
@@ -308,9 +308,9 @@ console.log(res);
   ...
 ```
 
-### Confirmation of transfer
+### 轉賬確認
 
-Check the restriction status by transferring the mosaic.
+通過傳輸馬賽克檢查限制狀態。
 
 ```js
 //Success (Carol to Bob)
@@ -337,22 +337,22 @@ signedTx = carol.sign(trTx, generationHash);
 await txRepo.announce(signedTx).toPromise();
 ```
 
-Failure will result in the following error status.
+失敗將導致以下錯誤狀態。
 
 ```js
 {"hash":"E3402FB7AE21A6A64838DDD0722420EC67E61206C148A73B0DFD7F8C098062FA","code":"Failure_RestrictionMosaic_Account_Unauthorized","deadline":"12371602742","group":"failed"}
 ```
 
-## 11.3 Tips for use
+## 11.3 使用提示
 
-"Account restriction" and "Mosaic Global Restriction" features can be used to control the properties of Symbol accounts and mosaics. The flexibility of restrictions has the potential to fulfil practical use cases of the Symbol blockchain in real-world situations. For example, it could be necessary to place limitations on the transfer of a specific mosaic to comply with laws and regulations or to avoid specific tokens issued by a business from being traded. Accounts can also be limited to restrict incoming transactions of certain mosaics or from specific users to avoid spam or malicious transactions providing additional safety to Symbol users.
+“賬戶限制”和“代幣全局限制”功能可用於控制Symbol賬戶和代幣的屬性。這些限制的靈活性使Symbol區塊鏈具備在實際應用場景中實現的潛力。例如，為了遵守法律法規或避免交易某個特定業務發行的代幣，可能需要限制某個代幣的轉移。賬戶也可以限制，以限制特定代幣的入賬交易或來自特定用戶的交易，從而避免垃圾郵件或惡意交易，為Symbol用戶提供額外的安全保障。
 
-### Account burn
+### 賬號燒毀
 
-Using "AllowIncomingAddress" to limit funds being received only from a specified address and then sending the entire XYM balance to another account a user can explicitly create an account that is difficult to operate on its own, even with the  private key. (Note, it is possibly to be authorised by a node whose minimum fee is 0.)
+通過使用“AllowIncomingAddress”來限制僅從指定地址接收資金，然後將整個 XYM 餘額發送到另一個帳戶，用戶可以顯式地創建一個難以單獨操作的帳戶，即使擁有私鑰也很難。 （請注意，可以通過授權最低費用為 0 的節點進行授權。）
 
-### Mosaic lock
-A mosaic can be issued with non-transferable settings, if the account creator prohibits the mosaic from being received by their account then the mosaic is locked and cannot be moved from the recipient's account.
+### 馬賽克鎖
+如果發行的mosaic設置為不可轉讓，而創建者禁止將mosaic接收到其帳戶，那麼該mosaic將被鎖定，無法從接收者的帳戶移動。
 
-### Proof of membership
-Proof of ownership was explained in the chapter on mosaics. By utilising the mosaic global restriction, it is possible to create a mosaic that can only be owned and circulated between accounts that have for instance, gone through a KYC process, creating a unique economic zone to which only the owner can belong.
+### 所有權證明
+所有權證明已在有關馬賽克的章節中解釋。通過利用馬賽克全局限制，可以創建一種只能由那些已經通過KYC過程的帳戶擁有和流通的馬賽克，從而創建一個獨特的經濟區域，只有擁有者可以參與。
