@@ -1,13 +1,14 @@
-# 8.Lock
+# 8.鎖
 
-The Symbol blockchain has two types of LockTransactions: Hash Lock Transaction and Secret Lock Transaction.  
-
-## 8.1 Hash Lock
-
-Hash Lock Transactions enable a transaction to be be announced later. The transaction is stored in every node's partial cache with a hash value until the transaction is announced. The transaction is locked and not processed on the API node until it is signed by all cosignatories. It does not lock the tokens owned by the account but a 10 XYM deposit is paid by the initiator of the transaction. The locked funds will be refunded to the initiating account when the Hash Lock transaction is fully signed.  The maximum validity period of a Hash Lock Transaction is approximately 48 hours, if the transaction is not completed within this time period then the 10 XYM deposit is lost.
+區塊鏈有兩種鎖定交易：哈希鎖定交易和秘密鎖定交易。
 
 
-### Creation of an Aggregate Bonded Transaction.
+## 8.1 哈希鎖 Hash Lock
+
+哈希鎖定交易可以讓交易在稍後公布。交易會以哈希值的形式存儲在每個節點的部分快取中，直到交易被公布。交易被鎖定，在 API 節點上不進行處理，直到它被所有共同簽署者簽署。它不會鎖定帳戶所擁有的代幣，但交易發起者需要支付10 XYM的押金。當哈希鎖定交易完全簽署時，被鎖定的資金將退還給發起交易的帳戶。哈希鎖定交易的最大有效期為約48小時，如果交易在此期限內未完成，則10 XYM押金將會丟失。
+
+
+### 創建聚合綁定交易。
 
 ```js
 bob = sym.Account.generateNewAccount(networkType);
@@ -50,11 +51,11 @@ aggregateTx = sym.AggregateTransaction.createBonded(
 signedAggregateTx = alice.sign(aggregateTx, generationHash);
 ```
 
-Specify the public key of the sender's account when two transactions, tx1 and tx2, are arrayed in AggregateArray. Get the public key in advance via the API with reference to the Account chapter. Arrayed transactions are verified for integrity in this order during block approval.
+當兩筆交易 tx1 和 tx2 排列在 AggregateArray 中時，指定發送方賬戶的公鑰。 參考賬戶章節通過API提前獲取公鑰。 在區塊批准期間，按此順序驗證排列的交易的完整性。
 
-For example, it is possible to send an NFT from Alice to Bob in tx1 and then from Bob to Carol in tx2, but changing the order of the Aggregate Transaction to tx2,tx1 will result in an error. In addition, if there is even one inconsistent transaction in the Aggregate transaction, the entire Aggregate transaction will fail and will not be approved into the chain.
+例如，可以在交易1中從 Alice 發送一個 NFT 給 Bob，然後在交易2中從 Bob 發送給 Carol，但如果更改彙總交易的順序為交易2、交易1，將導致錯誤。此外，如果彙總交易中有任何不一致的交易，整個彙總交易將失敗，並且不會被批准進入區塊鏈。
 
-### Creation, signing and announcement of Hash Lock Transaction
+### 哈希鎖交易的創建、簽署和公告
 ```js
 //Creation of Hash Lock TX
 hashLockTx = sym.HashLockTransaction.create(
@@ -72,16 +73,16 @@ signedLockTx = alice.sign(hashLockTx, generationHash);
 await txRepo.announce(signedLockTx).toPromise();
 ```
 
-### Announcement of Aggregate Bonded Transaction
+### 聚合綁定交易的公告。
 
-After checking with e.g. Explorer, announce the Bonded Transaction to the network.
+與例如檢查後 Explorer，向網絡宣布保稅交易。
 ```js
 await txRepo.announceAggregateBonded(signedAggregateTx).toPromise();
 ```
 
 
-### Co-signature
-Co-sign the locked transaction from the specified account (Bob).
+### 聯署
+從指定賬戶 (Bob) 共同簽署鎖定的交易。
 
 ```js
 txInfo = await txRepo.getTransaction(signedAggregateTx.hash,sym.TransactionGroup.Partial).toPromise();
