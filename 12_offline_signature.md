@@ -55,7 +55,7 @@ console.log(signedPayload);
 
 ## 12.2 由 Bob 進行的共同簽名
 
-使用從 Alice 收到的 簽名Payload 恢復交易。
+使用從 Alice 收到的 簽名（有效負載payload） 恢復交易。
 
 ```js
 tx = sym.TransactionMapping.createFromPayload(signedPayload);
