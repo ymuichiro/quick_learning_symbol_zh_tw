@@ -91,18 +91,18 @@ signedCosTx = bob.signCosignatureTransaction(cosignatureTx);
 await txRepo.announceAggregateBondedCosignature(signedCosTx).toPromise();
 ```
 
-### Note
-Hash Lock Transactions can be created and announced by anyone, not just the account that initially creates and signs the transaction. But make sure that the Aggregate Transaction includes a transaction for whom the account is the signer. Dummy transactions with no mosaic transmission and no message are valid.
+### 參考資料
+哈希鎖交易可以由任何人創建和公佈，而不僅僅是最初創建和簽署交易的帳戶。 但要確保聚合交易包括該賬戶是簽名者的交易。 沒有馬賽克傳輸和沒有消息的虛擬交易是有效的。
 
 
-## 8.2 Secret Lock・Secret Proof
+## 8.2 秘密鎖・秘密證明
 
-The secret lock creates a common password in advance and locks the designated mosaic. This allows the recipient to receive the locked mosaic if they can prove that they possess the password before the lock expiry date.
+秘密鎖定交易是指事先建立一個共同的密碼，並將指定的代幣鎖定起來。如果接收者能夠在鎖定到期日期之前證明自己擁有密碼，那麼他們就可以接收到被鎖定的代幣。
 
-This section describes how Alice locks 1XYM and Bob unlocks the transaction to receive the funds.
+本節介紹 Alice 如何鎖定 1XYM，Bob 如何解鎖交易以接收資金。
 
-First, create a Bob account to interact with Alice.
-Bob needs to announce the transaction to unlock the transaction, so please request 10XYM from the faucet.
+首先，創建一個 Bob 帳戶與 Alice 進行交互。
+Bob需要公佈交易才能解鎖交易，請向水龍頭索取10XYM。
 
 ```js
 bob = sym.Account.generateNewAccount(networkType);
@@ -112,9 +112,9 @@ console.log(bob.address);
 console.log("https://testnet.symbol.tools/?recipient=" + bob.address.plain() +"&amount=10");
 ```
 
-### Secret Lock
+### 秘密鎖
 
-Create a common pass for locking and unlocking.
+創建用於鎖定和解鎖的通用通行證。
 
 ```js
 sha3_256 = require('/node_modules/js-sha3').sha3_256;
@@ -127,13 +127,13 @@ console.log("secret:" + secret);
 console.log("proof:" + proof);
 ```
 
-###### Sample output
+###### 市例演示
 ```js
 > secret:f260bfb53478f163ee61ee3e5fb7cfcaf7f0b663bc9dd4c537b958d4ce00e240
   proof:7944496ac0f572173c2549baf9ac18f893aab6d0
 ```
 
-Creating, signing and announcing transaction
+創建、簽署和宣布交易
 ```js
 lockTx = sym.SecretLockTransaction.create(
     sym.Deadline.create(epochAdjustment),
@@ -152,22 +152,22 @@ signedLockTx = alice.sign(lockTx,generationHash);
 await txRepo.announce(signedLockTx).toPromise();
 ```
 
-The LockHashAlgorithm is as follows
+鎖定哈希算法如下
 ```js
 {0: 'Op_Sha3_256', 1: 'Op_Hash_160', 2: 'Op_Hash_256'}
 ```
 
-At the time of locking, the unlock destination is specified by Bob, thus the destination account (Bob) cannot be changed even if an account other than Bob unlocks the transaction.
+鎖定時，解鎖目的地由Bob指定，因此即使Bob以外的賬戶解鎖交易，也無法更改目的地賬戶（Bob）。
 
-The maximum lock period is 365 days (counting number of blocks in days).
+最長鎖定期為 365 天（以天為單位計算區塊數）。
 
-Check the approved transactions.
+檢查已批准的交易。
 ```js
 slRepo = repo.createSecretLockRepository();
 res = await slRepo.search({secret:secret}).toPromise();
 console.log(res.data[0]);
 ```
-###### Sample output
+###### 市例演示
 ```js
 > SecretLockInfo
     amount: UInt64 {lower: 1000000, higher: 0}
@@ -182,13 +182,13 @@ console.log(res.data[0]);
     status: 0
     version: 1
 ```
-It shows that Alice who locked the transaction is recorded in ownerAddress and the Bob is recorded in recipientAddress.
-The information about the secret is published and Bob informs the network of the corresponding proof.
+這表明鎖定交易的 Alice 被記錄在 ownerAddress 中，而 Bob 被記錄在 recipientAddress 中。
+有關秘密的信息被公佈，Bob 將相應的證明通知網絡。
 
 
-### Secret Proof
+### 秘密證明
 
-Unlock the transaction using the secret proof. Bob must have obtained the secret proof in advance.
+使用秘密證明解鎖交易。 Bob一定是提前拿到了秘密證明。
 
 
 ```js
@@ -205,12 +205,12 @@ signedProofTx = bob.sign(proofTx,generationHash);
 await txRepo.announce(signedProofTx).toPromise();
 ```
 
-Confirm the approval result.
+確認審批結果。
 ```js
 txInfo = await txRepo.getTransaction(signedProofTx.hash,sym.TransactionGroup.Confirmed).toPromise();
 console.log(txInfo);
 ```
-###### Sample output
+###### 市例演示
 ```js
 > SecretProofTransaction
   > deadline: Deadline {adjustedValue: 12669305546}
@@ -231,7 +231,7 @@ console.log(txInfo);
     type: 16978
 ```
 
-The SecretProofTransaction does not contain information about the amount of any mosaics received. Check the amount in the receipt created when the block is generated. Search for receipts addressed to Bob with receipt type:LockHash_Completed.
+秘密證明交易不包含任何接收到的代幣數量的信息。請在區塊生成時創建的收據中檢查數量。搜索收據地址為 Bob，收據類型為 LockHash_Completed。
 
 
 ```js
@@ -243,7 +243,7 @@ receiptInfo = await receiptRepo.searchReceipts({
 }).toPromise();
 console.log(receiptInfo.data);
 ```
-###### Sample output
+###### 市例演示
 ```js
 > data: Array(1)
   >  0: TransactionStatement
@@ -257,7 +257,7 @@ console.log(receiptInfo.data);
               type: 8786
 ```
 
-ReceiptTypes are as follows:
+收據類型如下：
 
 ```js
 {4685: 'Mosaic_Rental_Fee', 4942: 'Namespace_Rental_Fee', 8515: 'Harvest_Fee', 8776: 'LockHash_Completed', 8786: 'LockSecret_Completed', 9032: 'LockHash_Expired', 9042: 'LockSecret_Expired', 12616: 'LockHash_Created', 12626: 'LockSecret_Created', 16717: 'Mosaic_Expired', 16718: 'Namespace_Expired', 16974: 'Namespace_Deleted', 20803: 'Inflation', 57667: 'Transaction_Group', 61763: 'Address_Alias_Resolution', 62019: 'Mosaic_Alias_Resolution'}
@@ -266,17 +266,17 @@ ReceiptTypes are as follows:
 9042: 'LockSecret_Expired'　：LockSecret is expired
 ```
 
-## 8.3 Tips for use
+## 8.3 使用提示
 
 
-### Paying the transaction fee instead
+### 支付交易費用
 
-Generally blockchains require transaction fees for sending transactions. Therefore, users who want to use blockchains need to obtain the native currency of the chain to pay fees (e.g. Symbol's native currency XYM) from the exchange in advance. If the user is a company, the way it is managed might be an issue from an operational point of view. If using Aggregate Transactions, service providers can cover hash lock and transaction fees on behalf of users.
+一般而言，區塊鏈要求在發送交易時支付交易費用。因此，想要使用區塊鏈的使用者需要事先從交易所獲取該鏈的本地貨幣（例如 Symbol 的本地貨幣 XYM）來支付費用。如果使用者是一家公司，從運營角度來看，這樣的管理方式可能會成為一個問題。使用聚合交易，服務提供商可以代表使用者支付秘密鎖定和交易費用。
 
-### Scheduled transactions
+### 預定交易
 
-Secret locks are refunded to the account that created the transaction after a specified number of blocks.
-When the service provider charges the cost of the lock for the Secret Lock account, the amount of tokens owned by the user for the lock will increase after the expiry date has passed. On the other hand, announcing a secret proof transaction before the deadline has passed is treated as a cancellation as the transaction is completed and the funds are returned to the service provider.
+在指定數量的塊後，秘密鎖將退還給創建交易的帳戶。
+當服務提供商為 Secret Lock 賬戶收取鎖的費用時，用戶擁有的鎖的代幣數量將在到期日後增加。 另一方面，在截止日期之前宣布秘密證明交易將被視為取消，因為交易已完成並且資金將退還給服務提供商。
 
-### Atomic swaps
-Secret locks can be used to exchange  mosaics (tokens) with other chains. Please note that other chains refer to this as a hash time lock contract (HTLC)  not to be mistaken for a Symbol Hash Lock.
+### 原子互換
+秘密鎖定可以用於與其他鏈進行代幣交換。請注意，其他鏈將其稱為哈希時間鎖定合約（HTLC），不要與 Symbol 的哈希鎖定混淆。
