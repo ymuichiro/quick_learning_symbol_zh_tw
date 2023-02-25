@@ -51,11 +51,11 @@ console.log(signedPayload);
 >580100000000000039A6555133357524A8F4A832E1E596BDBA39297BC94CD1D0728572EE14F66AA71ACF5088DB6F0D1031FF65F2BBA7DA9EE3A8ECF242C2A0FE41B6A00A2EF4B9020E5C72B0D5946C1EFEE7E5317C5985F106B739BB0BC07E4F9A288417B3CD6D26000000000198414100AF000000000000D4641CD902000000306771D758886F1529F9B61664B0450ED138B27CC5E3AE579C16D550EDEE5791B00000000000000054000000000000000E5C72B0D5946C1EFEE7E5317C5985F106B739BB0BC07E4F9A288417B3CD6D26000000000198544198A1BE13194C0D18897DD88FE3BC4860B8EEF79C6BC8C8720400000000000000007478310000000054000000000000003C4ADF83264FF73B4EC1DD05B490723A8CFFAE1ABBD4D4190AC4CAC1E6505A5900000000019854419850BF0FD1A45FCEE211B57D0FE2B6421EB81979814F629204000000000000000074783200000000
 ```
 
-簽署並輸出簽名哈希和簽名有效負載(Payload)。將簽名有效負載傳遞給Bob以提示他進行簽署。
+簽署並輸出簽名哈希和簽名有效載荷(Payload)。將簽名有效負載傳遞給Bob以提示他進行簽署。
 
 ## 12.2 由 Bob 進行的共同簽名
 
-使用從 Alice 收到的 簽名（有效負載payload） 恢復交易。
+使用從 Alice 收到的 簽名（有效載荷payload） 恢復交易。
 
 ```js
 tx = sym.TransactionMapping.createFromPayload(signedPayload);
@@ -83,7 +83,7 @@ console.log(tx);
     version: 1
 ```
 
-為了確保，請驗證交易（有效負載payload）是否已由Alice簽署。
+為了確保，請驗證交易（有效載荷payload）是否已由Alice簽署。
 
 ```js
 Buffer = require("/node_modules/buffer").Buffer;
@@ -165,7 +165,7 @@ signedTx = new sym.SignedTransaction(
 await txRepo.announce(signedTx).toPromise();
 ```
 
-後面添加一系列簽名會有點困難，因為它直接操作 Payload（大小值）。
+後面添加一系列簽名會有點困難，因為它直接操作 有效載荷(Payload)（大小值）。
 如果可以使用 Alice 的私鑰再次對交易進行簽名，則可以生成 cosignSignedTxs，然後生成一個共簽交易，如下所示。
 
 ```js
@@ -187,4 +187,4 @@ await txRepo.announce(resignedTx).toPromise();
 無需為這些談判建立專門的市場。
 用戶可以將社交網絡時間線作為市場，也可以根據需要在任何時間、任何空間開發一次性市場。
 
-請注意偽造的哈希簽名請求，因為簽名是離線交換的（請始終從可驗證的有效負載生成並簽署哈希）。
+請注意偽造的哈希簽名請求，因為簽名是離線交換的（請始終從可驗證的有效載荷生成並簽署哈希）。
