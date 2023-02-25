@@ -146,7 +146,7 @@ await txRepo.announce(signedTx).toPromise();
 
 ### 使用聚合保稅交易進行轉移
 
-Aggregate bonded 交易可以在不指定共同簽名者的情況下進行公告。它通過聲明將使用哈希鎖定預先存儲該交易來完成，共同簽名者在該交易存儲在網絡上後進一步簽署該交易。
+聚合保稅交易可以在不指定共同簽名者的情況下進行公告。它通過聲明將使用哈希鎖定預先存儲該交易來完成，共同簽名者在該交易存儲在網絡上後進一步簽署該交易。
 
 ```js
 tx = sym.TransferTransaction.create(
