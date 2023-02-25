@@ -1,15 +1,15 @@
-# 13. Validation
+# 13. 驗證
 
-Verify all kinds of information recorded on the blockchain.
-While recording data on the blockchain is done with the agreement of all nodes, 
- **referencing data** on the blockchain is achieved by obtaining information from a single 
-node. For this reason, to avoid making a new transaction based on information from an untrusted node, the data obtained from the node must be verified.
+驗證記錄在區塊鏈上的各種信息。
+雖然在區塊鏈上記錄數據是在所有節點的同意下完成的，
+**區塊鏈上的引用數據**是通過從一個單一的獲取信息來實現的節點。
+為此，為避免根據來自不可信節點的信息進行新的交易，必須驗證從該節點獲取的數據。
 
-## 13.1 Transaction validation
+## 13.1 交易驗證
 
-Verify that the transaction is included in the block header. If this verification succeeds, the transaction can be considered as authorised by blockchain agreement.
+驗證交易是否包含在區塊頭中。 如果此驗證成功，則可以認為該交易已通過區塊鏈協議授權。
 
-Before running the sample scripts in this chapter, please load the following necessary libraries.
+在運行本章中的示例腳本之前，請加載以下必要的資料庫。
 
 ```js
 Buffer = require("/node_modules/buffer").Buffer;
@@ -21,9 +21,9 @@ blockRepo = repo.createBlockRepository();
 stateProofService = new sym.StateProofService(repo);
 ```
 
-### Payload to be verified
+### 待驗證的有效載荷(Payload)
 
-The transaction payload to be verified in this case and the block height at which the transaction is supposed to have been recorded.
+在這種情況下要驗證的交易有效載荷以及應該記錄交易的區塊高度。
 
 ```js
 payload =
@@ -31,9 +31,9 @@ payload =
 height = 59639;
 ```
 
-### Payload validation
+### 有效載荷驗證
 
-Verify the contents of the transaction.
+驗證交易內容。
 
 ```js
 tx = sym.TransactionMapping.createFromPayload(payload);
@@ -45,7 +45,7 @@ console.log(hash);
 console.log(tx);
 ```
 
-###### Sample output
+###### 市例演示
 
 ```js
 > 257E2CAECF4B477235CA93C37090E8BE58B7D3812A012E39B7B55BA7D7FFCB20
@@ -71,9 +71,9 @@ console.log(tx);
       type: 16705
 ```
 
-### Signatory validation
+### 簽名驗證
 
-The transaction can be verified by confirming that it has been included in the block, but just to make sure, it is possible to verify the signature of the transaction with the account's public key.
+可以通過確認交易已包含在區塊中來驗證交易，但為了確保，可以使用帳戶的公鑰驗證交易的簽名。
 
 ```js
 res = alice.publicAccount.verifySignature(
@@ -90,14 +90,14 @@ console.log(res);
 > true
 ```
 
-Only the part to be signed is extracted in getSigningBytes.  
-Note that the part to be extracted is different for normal transactions and Aggregate Transactions.
+getSigningBytes 會從待簽名的有效載荷中提取需要簽名的部分。
+請注意，要提取的部分對於普通交易和聚合交易是不同的。
 
-### Calculation of the Merkle component hash
+### 計算 Merkle 組件哈希值
 
-The hash value of the transaction does not contain information about the co-signatory.  
-On the other hand, the Merkle root stored in the block header contains a hash of the transaction with the information of the co-signatory included.  
-Therefore, when verifying whether a transaction exists inside a block, the transaction hash must be converted to a Merkle component hash.
+交易的哈希值不包含與簽名人有關的信息。
+另一方面，存儲在區塊頭中的 Merkle 根包含交易的哈希值，其中包含簽名人的信息。
+因此，在驗證區塊內是否存在交易時，必須將交易哈希轉換為 Merkle 組件哈希。
 
 ```js
 merkleComponentHash = hash;
@@ -116,9 +116,9 @@ console.log(merkleComponentHash);
 > C8D1335F07DE05832B702CACB85B8EDAC2F3086543C76C9F56F99A0861E8F235
 ```
 
-### Inblock validation
+### 塊內驗證
 
-Retrieve the Merkle tree from the node and check that the Merkle root of the block header can be derived from the merkleComponentHash calculated.
+從節點檢索 Merkle 樹，並檢查從計算出的 merkleComponentHash 可以導出區塊標頭的 Merkle 根。
 
 ```js
 function validateTransactionInBlock(leaf, HRoot, merkleProof) {
@@ -155,13 +155,13 @@ console.log(result);
 > true
 ```
 
-It has been verified that the transaction information is contained in the block header.
+經驗證，交易信息包含在區塊頭中。
 
-## 13.2 Block header validation
+## 13.2 塊頭驗證
 
-Verify that the known block hash value (e.g. finalised block) can be traced back to the block header that is being verified.
+驗證已知的區塊哈希值（例如最終區塊）是否可以追溯到正在驗證的區塊頭。
 
-### Normal block validation
+### 正常區塊驗證
 
 ```js
 block = await blockRepo.getBlockByHeight(height).toPromise();
@@ -204,18 +204,18 @@ if (block.type === sym.BlockType.NormalBlock) {
 }
 ```
 
-If the output was true, this block hash acknowledges the existence of the previous block hash value. In the same way, the "n"th block confirms the existence of the "n-1th" block and finally arrives at the block being verified.
+如果輸出為 true，則此區塊哈希確認了前一個區塊哈希值的存在。以相同的方式，第 "n" 個區塊確認了 "n-1" 區塊的存在，最終到達要驗證的區塊。
 
-Now we have a known finalised block that can be verified by querying any node to support the existence of the block to be verified.
+現在我們有了一個已知的最終區塊，可以通過查詢任何節點來驗證是否支持要驗證的區塊的存在。
 
-### Importance block validation
+### 重要性塊驗證
 
-ImportanceBlocks are the blocks where the importance value is recalculated. Importance blocks occur every 720 blocks on Mainnet and every 180 blocks on Testnet. In addition to the NormalBlock, the following information is added.
+ImportanceBlocks 是重新計算重要性值的區塊。在主網上，每 720 個區塊出現一個 ImportanceBlock，在測試網上則是每 180 個區塊。除了 NormalBlock 的資訊外，還會添加以下資訊。
 
-- votingEligibleAccountsCount
-- harvestingEligibleAccountsCount
-- totalVotingBalance
-- previousImportanceBlockHash
+- votingEligibleAccountsCount (有投票权的帳戶數量)
+- harvestingEligibleAccountsCount (可進行收穫的帳戶數量)
+- totalVotingBalance (總投票權重)
+- previousImportanceBlockHash (先前的重要性區塊雜湊值)
 
 ```js
 block = await blockRepo.getBlockByHeight(height).toPromise();
@@ -275,9 +275,9 @@ if (block.type === sym.BlockType.ImportanceBlock) {
 }
 ```
 
-Verifying stateHashSubCacheMerkleRoots for accounts and metadata which is described below.
+驗證下列帳戶和元數據的 stateHashSubCacheMerkleRoots。
 
-### Importance block stateHash validation
+### 重要性區塊狀態哈希驗證
 
 ```js
 console.log(block);
@@ -319,14 +319,14 @@ console.log(block.stateHash === hash);
 > true
 ```
 
-It can be seen that the nine states used to validate the block headers consist of stateHashSubCacheMerkleRoots.
+可以看出，用於驗證區塊頭的九個狀態是由stateHashSubCacheMerkleRoots組成的。
 
-## 13.3 Account metadata validation
+## 13.3 帳戶元數據驗證
 
-The Merkle Patricia Tree is used to verify the existence of accounts and metadata associated with a transaction.  
-If the service provider provides a Merkle Patricia tree, users can verify its authenticity using nodes of their own choosing.
+Merkle Patricia Tree 用於驗證與交易相關的帳戶和元數據的存在。
+如果服務提供商提供了 Merkle Patricia 樹，用戶可以使用自己選擇的節點來驗證其真實性。
 
-### Common functions for verification
+### 驗證常用函數
 
 ```js
 //Function for obtaining the hash value of a leaf
@@ -385,10 +385,10 @@ function checkState(stateProof, stateHash, pathHash, rootHash) {
 }
 ```
 
-### 13.3.1 Account information validation
+### 13.3.1 賬戶信息驗證
 
-Account information ia a leaf.
-Trace the branches on the Merkle tree by address and confirm whether the route can be reached.
+帳戶資訊是一個葉子
+通過地址追踪Merkle樹上的分支，確認路由是否可達。
 
 ```js
 stateProofService = new sym.StateProofService(repo);
@@ -418,9 +418,9 @@ stateProof = await stateProofService.accountById(aliceAddress).toPromise();
 checkState(stateProof, aliceStateHash, alicePathHash, rootHash);
 ```
 
-### 13.3.2 Verification of metadata registered to the mosaic
+### 13.3.2 驗證註冊到馬賽克的元數據
 
-Metadata values are registered in the mosaic as a leaf. Trace the branches on the Merkle tree by the hash value consisting of the metadata key, and confirm whether the root can be reached.
+元數據值以葉子節點的形式註冊在馬賽克中。通過由元數據鍵組成的哈希值跟踪 Merkle 樹上的分支，並確認是否可以到達根節點。
 
 ```js
 srcAddress = Buffer.from(
@@ -476,9 +476,9 @@ stateProof = await stateProofService.metadataById(compositeHash).toPromise();
 checkState(stateProof, stateHash, pathHash, rootHash);
 ```
 
-### 13.3.3 Verification of metadata registered to an account
+### 13.3.3 驗證註冊到帳戶的元數據
 
-Metadata values are registered in the account as a leaf. Trace the branches on the Merkle tree by the hash value consisting of the metadata key, and confirm whether the root can be reached.
+元數據值以葉節點的形式在賬戶中註冊。通過由元數據鍵組成的哈希值跟踪 Merkle 樹的分支，並確認是否可以到達根節點。
 
 ```js
 srcAddress = Buffer.from(
@@ -533,13 +533,13 @@ stateProof = await stateProofService.metadataById(compositeHash).toPromise();
 checkState(stateProof, stateHash, pathHash, rootHash);
 ```
 
-## 13.4 Tips for use
+## 13.4 使用提示
 
-### Trusted web
+### 可信網絡
 
-A simple explanation of the “Trusted Web” is the realisation of a Web where everything is platform-independent and nothing needs to be verified.
+對“可信網絡”的簡單解釋是實現一個一切都與平台無關且無需驗證的網絡。
 
-What the verification methods in this chapter shows is that all information held by the blockchain can be verified by the hash value of the block header. Blockchains are based on the sharing of block headers that everyone agrees upon and the existence of full nodes that can reproduce them. However, it is challenging to maintain an environment to verify these in every situation where you want to utilise the blockchain.
+本章節所展示的驗證方法表明，區塊鏈中的所有信息都可以通過區塊頭的哈希值進行驗證。區塊鏈基於共享每個人都同意的區塊頭和可以重現它們的全節點的存在。然而，在想要利用區塊鏈的每種情況下維護驗證環境是具有挑戰性的。
 
-If the latest block headers are constantly broadcast from multiple trusted institutions, this can greatly reduce the need for verification. Such an infrastructure would allow access to trusted information even in places beyond the capabilities of the blockchain, such as urban areas where tens of millions of people are densely populated, or in remote areas where base stations cannot be adequately deployed, or during wide-area network outages during disasters.
+如果最新的區塊頭不斷由多個可信機構廣播，這可以大大減少驗證的需求。這樣的基礎設施將允許在區塊鏈能力之外的地方，如人口密集的城市地區或無法適當部署基站的偏遠地區，甚至在災難期間的廣域網絡中斷期間，獲得可信信息的訪問。
 
