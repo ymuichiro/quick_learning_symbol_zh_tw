@@ -1,14 +1,14 @@
-# 9. Multisignature
-Symbol accounts can be converted to multisig.
+# 9. 多重簽名
+Symbol帳戶可以轉換為多重簽名。
 
 
-### Points
+### 積分
 
-Multisig accounts can have up to 25 co-signatories. An account can be cosigner of up to 25 multisig accounts. Multisig accounts can be hierarchical and composed of up to 3 levels. This chapter explains single-level multisig.
+多重簽名賬戶最多可以有 25 個共同簽署人。 一個帳戶最多可以是 25 個多重簽名帳戶的共同簽名者。 多重簽名賬戶可以是分層的，最多由 3 個級別組成。 本章介紹單級多重簽名。
 
-## 9.0 Preparing an account
-Create the accounts used in the sample source code in this chapter and output each secret key.
-Note that the Bob multisig account in this chapter will be unusable if Carol's secret key is lost.
+## 9.0 準備一個帳戶
+創建本章示例源代碼中使用的帳戶並輸出每個密鑰。
+請注意，本章中的 Bob 多簽帳戶將無法使用，如果 Carol 的私鑰遺失。
 
 
 ```js
@@ -26,22 +26,22 @@ console.log(carol4.privateKey);
 console.log(carol5.privateKey);
 ```
 
-When using a testnet, the equivalent of the network fee from the faucet should be available in the bob and carol1 accounts.
+使用測試網時，應該在 bob 和 carol1 帳戶中提供相當於來自水龍頭的網絡費用。
 
-- Faucet
+- 水龍頭
     - https://testnet.symbol.tools/
 
-##### Output URL
+##### 輸出網址(URL)
 
 ```js
 console.log("https://testnet.symbol.tools/?recipient=" + bob.address.plain() +"&amount=20");
 console.log("https://testnet.symbol.tools/?recipient=" + carol1.address.plain() +"&amount=20");
 ```
 
-## 9.1 Multisig registration
+## 9.1 多重簽名註冊
 
-Symbol does not need to create a new account when setting up a multisig. Instead co-signatories can be specified for an existing account.
-Creating a multisig account requires the consent signature (opt-in) of the account designated as the co-signatory. Aggregate Transactions are used to confirm this.
+Symbol 在設置多重簽名時不需要創建新帳戶。 相反，可以為現有帳戶指定共同簽署人。
+創建多重簽名賬戶需要指定為共同簽署人的賬戶的同意簽名（選擇加入）。 聚合交易用於確認這一點。
 
 ```js
 multisigTx = sym.MultisigAccountModificationTransaction.create(
@@ -69,15 +69,15 @@ signedTx =  aggregateTx.signTransactionWithCosignatories(
 await txRepo.announce(signedTx).toPromise();
 ```
 
-## 9.2 Confirmation
+## 9.2 確認
 
-### Confirmation of multisig account
+### 多重簽名賬戶的確認
 ```js
 msigRepo = repo.createMultisigRepository();
 multisigInfo = await msigRepo.getMultisigAccountInfo(bob.address).toPromise();
 console.log(multisigInfo);
 ```
-###### Sample output
+###### 市例演示
 ```js
 > MultisigAccountInfo 
     accountAddress: Address {address: 'TCOMA5VG67TZH4X55HGZOXOFP7S232CYEQMOS7Q', networkType: 152}
@@ -91,16 +91,16 @@ console.log(multisigInfo);
     multisigAddresses: []
 ```
 
-It shows that cosignatoryAddresses are registered as co-signatories. Also, minApproval:3 shows that the number of signatures required for a transaction to execute is 3. minRemoval: 3 shows that the number of signatories required to remove a cosignatory is 3.
+這表明 cosignatoryAddresses 被註冊為共同簽名人。此外，minApproval:3 表示執行交易所需的簽名數量為 3。minRemoval:3 表示需要 3 個簽名人才能刪除一個共同簽名人。
 
 
-### Confirmation of co-signatory accounts
+### 共同簽名帳戶的確認
 ```js
 msigRepo = repo.createMultisigRepository();
 multisigInfo = await msigRepo.getMultisigAccountInfo(carol1.address).toPromise();
 console.log(multisigInfo);
 ```
-###### Sample output
+###### 市例演示
 ```
 > MultisigAccountInfo
     accountAddress: Address {address: 'TCV67BMTD2JMDQOJUDQHBFJHQPG4DAKVKST3YJI', networkType: 152}
@@ -111,15 +111,15 @@ console.log(multisigInfo);
         0: Address {address: 'TCOMA5VG67TZH4X55HGZOXOFP7S232CYEQMOS7Q', networkType: 152}
 ```
 
-It shows that the account is a cosignatory of the multisigAddresses.
+它表明該帳戶是 multisigAddresses 的聯署人。
 
-## 9.3 Multisig signature
+## 9.3 多重簽名
 
-Send mosaics from a multisig account.
+從多重簽名帳戶發送馬賽克。
 
-### Transfer with an Aggregate Complete Transaction
+### 使用聚合完成交易進行轉移
 
-In the case of Aggregate Complete Transaction, the transaction is created after collecting all the signatures of the cosignatories before announcing it to the nodes.
+在聚合完成交易的情況下，交易是在收集到所有聯署人的簽名之後創建的，然後再向節點公佈。
 
 ```js
 tx = sym.TransferTransaction.create(
@@ -144,9 +144,9 @@ signedTx =  aggregateTx.signTransactionWithCosignatories(
 await txRepo.announce(signedTx).toPromise();
 ```
 
-### Transfer with an Aggregate Bonded Transaction
+### 使用聚合保稅交易進行轉移
 
-Aggregate bonded transactions can be announced without specifying co-signatories. It is completed by declaring that the transaction will be pre-stored with a hash lock, and the co-signer additionally signs the transaction once it has been stored on the network.
+Aggregate bonded 交易可以在不指定共同簽名者的情況下進行公告。它通過聲明將使用哈希鎖定預先存儲該交易來完成，共同簽名者在該交易存儲在網絡上後進一步簽署該交易。
 
 ```js
 tx = sym.TransferTransaction.create(
@@ -180,18 +180,18 @@ await txRepo.announce(signedLockTx).toPromise();
 //Announces bonded TX after confirming approval of hashlocks
 await txRepo.announceAggregateBonded(signedAggregateTx).toPromise();
 ```
-When a bonded transaction is known by a node, it will be a partial signature state and will be signed with a multisig account, using the co-signature introduced in chapter 8. Locking. It can also be confirmed by a wallet that supports co-signatures.
+當一個節點知道一個綁定交易時，它將是一個部分簽名狀態，並將使用第 8 章“鎖定”中介紹的共同簽名使用多重簽名帳戶進行簽名。 也可以通過支持共同簽名的錢包來確認。
 
 
-## 9.4 Confirmation of multisig transfer
+## 9.4 確認多重簽名轉移
 
-Check the results of a multisig transfer transaction.
+檢查多重簽名轉賬交易的結果。
 
 ```js
 txInfo = await txRepo.getTransaction(signedTx.hash,sym.TransactionGroup.Confirmed).toPromise();
 console.log(txInfo);
 ```
-###### Sample output
+###### 市例演示
 ```js
 > AggregateTransaction
   > cosignatures: Array(2)
@@ -236,15 +236,15 @@ console.log(txInfo);
     type: 16705
 ```
 
-- Multisig account
+- 多重簽名賬戶
     - Bob
         - AggregateTransaction.innerTransactions[0].signer.address
             - TCOMA5VG67TZH4X55HGZOXOFP7S232CYEQMOS7Q
-- Creator's account
+- Creator's 帳戶
     - Carol1
         - AggregateTransaction.signer.address
             - TCV67BMTD2JMDQOJUDQHBFJHQPG4DAKVKST3YJI
-- Co-signer account
+- Co-簽署者帳戶
     - Carol2
         - AggregateTransaction.cosignatures[0].signer.address
             - TB3XP4GQK6XH2SSA2E2U6UWCESNACK566DS4COY
@@ -252,11 +252,11 @@ console.log(txInfo);
         - AggregateTransaction.cosignatures[1].signer.address
             - TBAFGZOCB7OHZCCYYV64F2IFZL7SOOXNDHFS5NY
 
-## 9.5 Modifying a multisig account min approval
+## 9.5 修改多重簽名賬戶最低批准
 
-### Editing multisig configuration
+### 編輯多重簽名配置
 
-To reduce the number of co-signatories, specify the address to remove and adjust the number of co-signatories so that the minimum number of signatories is not exceeded and then announce the transaction. It is not necessary to include the account subject to remove as a co-signatory.
+為了減少共同簽名者的數量，可以指定要移除的地址，並調整共同簽名者的數量，以確保不超過最小簽名者的數量，然後公告該交易。不需要將要移除的帳戶包括在共同簽名者中。
 
 ```js
 multisigTx = sym.MultisigAccountModificationTransaction.create(
@@ -282,10 +282,10 @@ signedTx =  aggregateTx.signTransactionWithCosignatories(
 await txRepo.announce(signedTx).toPromise();
 ```
 
-### Replacement of co-signatories
+### 更換共同簽名者
 
-To replace a co-signatory, specify the address to be added and the address to be removed.
-The co-signature of the new additionally designated account is always required.
+要替換共同簽名者，請指定要添加的地址和要刪除的地址。
+始終需要新的額外指定帳戶的共同簽名。
 
 ```js
 multisigTx = sym.MultisigAccountModificationTransaction.create(
@@ -311,18 +311,18 @@ signedTx =  aggregateTx.signTransactionWithCosignatories(
 await txRepo.announce(signedTx).toPromise();
 ```
 
-## 9.6 Tips for use
+## 9.6 使用提示
 
-### Multi-factor authorisation
+### 多重身份驗證
 
-The management of private keys can be distributed across multiple terminals. Multisigs can be used to ensure safe recovery in the event of a lost or compromised key. If the key is lost then the user can access funds through co-signatories and if stolen then the attacker cannot transfer funds without cosignatory approval.
+私鑰的管理可以分佈在多個終端上。使用多重簽名可以確保在密鑰丟失或受到攻擊的情況下進行安全恢復。如果密鑰丟失，則用戶可以通過共同簽名者訪問資金，如果密鑰被盜，則攻擊者無法在未經共同簽名者批准的情況下轉移資金。
 
-### Account ownership
+### 帳戶所有權
 
-The private key of a multisig account is deactivated and unless the multisig is removed on the account sending mosaics will no longer be possible. As explained in Chapter 5. Mosaics, possession is “the state of being able to give it up at will', it can be said the owner of the assets on a multisig account are the co-signatories. Symbol allows replacement of co-signatories in a multisig configuration, so account ownership can be securely replaceable to another co-signatory.
+一個多重簽署帳戶的私鑰被停用，除非在該帳戶上刪除多重簽署，否則將無法再發送馬賽克。如第五章 馬賽克 所述，擁有資產的意思是「有能力隨時放棄」，因此可以說多重簽署帳戶的資產擁有者是共同簽署者。Symbol 允許在多重簽署配置中替換共同簽署者，因此帳戶所有權可以安全地轉移到另一個共同簽署者手中。
 
-### Workflow
+### 工作流程
 
-Symbol allows you to configure up to 3 levels of multisig (multi-level multisig).
-The use of multi-level multisig accounts prevents the use of stolen backup keys to complete a multisig, or the use of only an approver and an auditor to complete a signature.
-This allows the existence of transactions on the blockchain to be presented as evidence that certain operations and conditions have been met.
+Symbol 允許您配置最多 3 個級別的多重簽名（multi-level multisig）。
+使用多級多重簽名帳戶可防止使用被盜的備份密鑰來完成多重簽名，或僅使用批准人和審計員來完成簽名。
+這允許將區塊鏈上存在的交易作為滿足某些操作和條件的證據。
