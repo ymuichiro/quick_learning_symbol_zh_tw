@@ -1,6 +1,6 @@
-# 12.Offline Signatures
+# 12.離線簽名
 
-The chapter on Locks, explained the Lock transactions with a hash value specification and the Aggregate transaction, which collects multiple signatures (online signatures).  
+《鎖定》章節介紹了具有哈希值規範的鎖定交易以及收集多個簽名（線上簽名）的聚合交易。  
 This chapter explains offline signing, which involves collecting signatures in advance and announcing the transaction to the node.
 
 ## Procedure
