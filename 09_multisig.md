@@ -244,7 +244,7 @@ console.log(txInfo);
     - Carol1
         - AggregateTransaction.signer.address
             - TCV67BMTD2JMDQOJUDQHBFJHQPG4DAKVKST3YJI
-- Co-簽署者帳戶
+- 簽署者帳戶
     - Carol2
         - AggregateTransaction.cosignatures[0].signer.address
             - TB3XP4GQK6XH2SSA2E2U6UWCESNACK566DS4COY
