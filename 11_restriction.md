@@ -35,7 +35,7 @@ signedTx = carol.sign(tx, generationHash);
 await txRepo.announce(signedTx).toPromise();
 ```
 
-對於 AddressRestrictionFlag 設置如下。
+對於 AddressRestrictionFlag(地址限制標誌) 設置如下。
 
 ```js
 {1: 'AllowIncomingAddress', 16385: 'AllowOutgoingAddress', 32769: 'BlockIncomingAddress', 49153: 'BlockOutgoingAddress'}
@@ -64,7 +64,7 @@ signedTx = carol.sign(tx, generationHash);
 await txRepo.announce(signedTx).toPromise();
 ```
 
-MosaicRestrictionFlag 設置如下。
+MosaicRestrictionFlag(馬賽克限制標誌) 設置如下。
 
 ```js
 {2: 'AllowMosaic', 32770: 'BlockMosaic'}
@@ -91,7 +91,7 @@ signedTx = carol.sign(tx, generationHash);
 await txRepo.announce(signedTx).toPromise();
 ```
 
-OperationRestrictionFlag 設置如下。
+OperationRestrictionFlag(操作限制標誌) 設置如下。
 
 ```js
 {16388: 'AllowOutgoingTransactionType', 49156: 'BlockOutgoingTransactionType'}
@@ -143,7 +143,7 @@ console.log(res);
           0: Address {address: 'TCW2ZW7LVJMS4LWUQ7W6NROASRE2G2QKSBVCIQY', networkType: 152}
 ```
 
-## 11.2 馬賽克全局限制
+## 11.2 馬賽克全局限制(Mosaic Global Restriction)
 
 代幣全局限制設置了轉移代幣的條件。
 為專用於馬賽克全局限制的數字元數據分配給每個帳戶。 
@@ -218,7 +218,7 @@ signedTx = carol.sign(aggregateTx, generationHash);
 await txRepo.announce(signedTx).toPromise();
 ```
 
-MosaicRestrictionType 如下。
+MosaicRestrictionType (代幣限制類型)如下。
 
 ```js
 {0: 'NONE', 1: 'EQ', 2: 'NE', 3: 'LT', 4: 'LE', 5: 'GT', 6: 'GE'}
@@ -352,7 +352,7 @@ await txRepo.announce(signedTx).toPromise();
 通過使用“AllowIncomingAddress”來限制僅從指定地址接收資金，然後將整個 XYM 餘額發送到另一個帳戶，用戶可以顯式地創建一個難以單獨操作的帳戶，即使擁有私鑰也很難。 （請注意，可以通過授權最低費用為 0 的節點進行授權。）
 
 ### 馬賽克鎖
-如果發行的mosaic設置為不可轉讓，而創建者禁止將mosaic接收到其帳戶，那麼該mosaic將被鎖定，無法從接收者的帳戶移動。
+如果發行的馬賽克設置為不可轉讓，而創建者禁止將馬賽克接收到其帳戶，那麼該馬賽克將被鎖定，無法從接收者的帳戶移動。
 
 ### 所有權證明
 所有權證明已在有關馬賽克的章節中解釋。通過利用馬賽克全局限制，可以創建一種只能由那些已經通過KYC過程的帳戶擁有和流通的馬賽克，從而創建一個獨特的經濟區域，只有擁有者可以參與。
