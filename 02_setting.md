@@ -8,10 +8,10 @@
 
 ### SDK-軟體開發套件
 
-symbol-sdk-typescript-javascript v2.0.0  
+symbol-sdk-typescript-javascript v2.0.0<br>
 https://github.com/symbol/symbol-sdk-typescript-javascript
 
-在瀏覽器的開發人員控制台中，將上面的 SDK 作為 Browserify 載入。
+在瀏覽器的開發人員控制台中，將上面的 SDK 作為 Browserify 載入。<br>
 https://github.com/xembook/nem2-browserify
 
 ##### 注意事項
@@ -21,10 +21,10 @@ https://github.com/xembook/nem2-browserify
 
 ### 參考文獻
 
-Symbol SDK 支援 TypeScript 和 JavaScript
+Symbol SDK 支援 TypeScript 和 JavaScript<br>
 https://symbol.github.io/symbol-sdk-typescript-javascript/1.0.3/
 
-Catapult REST端點 (1.0.3)
+Catapult REST端點 (1.0.3)<br>
 https://symbol.github.io/symbol-openapi/v1.0.3/
 
 ## 2.2 範例原始碼
@@ -95,4 +95,4 @@ function clog(signedTx) {
 您現在已經準備就緒。
 如果本手冊的內容有些令人困惑，請參考 Qiita 的文章。
 
-在Symbol區塊鏈測試網體驗轉帳的過程](https://qiita.com/nem_takanobu/items/e2b1f0aafe7a2df0fe1b)
+[在Symbol區塊鏈測試網體驗轉帳的過程](https://qiita.com/nem_takanobu/items/e2b1f0aafe7a2df0fe1b)
