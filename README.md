@@ -18,10 +18,10 @@
 
 ### [3.帳戶](./03_account.md)
 
-- [3.1 帳戶](https://github.com/ymuichiro/quick_learning_symbol_zh_tw/blob/main/03_account.md)
-- [3.2 將資產轉移至另一個帳戶](https://github.com/ymuichiro/quick_learning_symbol_zh_tw/blob/main/03_account.md)
-- [3.3 查看帳戶訊息](https://github.com/ymuichiro/quick_learning_symbol_zh_tw/blob/main/03_account.md)
-- [3.4 使用提示](https://github.com/ymuichiro/quick_learning_symbol_zh_tw/blob/main/03_account.md)
+- [3.1 帳戶](03_account.md#31-創建帳戶)
+- [3.2 將資產轉移至另一個帳戶](03_account.md#32-轉帳交易到另一個帳戶)
+- [3.3 查看帳戶訊息](03_account.md#33-查看賬戶信息)
+- [3.4 使用提示](03_account.md#34-使用提示)
 
 ### [4.交易](./04_transaction.md)
 
