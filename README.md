@@ -6,10 +6,6 @@
 
 ### XEMBook
 
-## 其他語言
-
-[日本語](https://learn.ja.symbol-community.com)
-
 ## 目錄
 
 ### [1.簡介](./01_introduction.md)
