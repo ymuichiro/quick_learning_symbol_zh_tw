@@ -23,11 +23,11 @@
 
 - [4.1 交易生命週期](04_transaction.md#41-交易生命週期)
 - [4.2 交易創建](04_transaction.md#42-交易創建)
-- [4.3 簽名與廣播](04_transaction.md#43-%E7%BD%B2%E5%90%8D%E3%81%A8%E3%82%A2%E3%83%8A%E3%82%A6%E3%83%B3%E3%82%B9)
-- [4.4 確認](04_transaction.md#44-%E7%A2%BA%E8%AA%8D)
-- [4.5 交易紀錄](04_transaction.md#45%E3%83%88%E3%83%A9%E3%83%B3%E3%82%B6%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E5%B1%A5%E6%AD%B4)
-- [4.6 聚合交易](04_transaction.md#46-%E3%82%A2%E3%82%B0%E3%83%AA%E3%82%B2%E3%83%BC%E3%83%88%E3%83%88%E3%83%A9%E3%83%B3%E3%82%B6%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3)
-- [4.7 使用提示](04_transaction.md#47-%E7%8F%BE%E5%A0%B4%E3%81%A7%E4%BD%BF%E3%81%88%E3%82%8B%E3%83%92%E3%83%B3%E3%83%88)
+- [4.3 簽名與廣播](04_transaction.md#43-簽名與廣播)
+- [4.4 確認](04_transaction.md#44-確認)
+- [4.5 交易紀錄](04_transaction.md#45-交易紀錄)
+- [4.6 聚合交易](04_transaction.md#46-聚合交易)
+- [4.7 使用提示](04_transaction.md#47-使用提示)
 
 ### [5.馬賽克](./05_mosaic.md)
 
