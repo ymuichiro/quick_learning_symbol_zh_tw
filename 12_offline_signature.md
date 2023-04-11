@@ -118,7 +118,7 @@ bobSignedTxSignerPublicKey = bobSignedTx.signerPublicKey;
 Bob使用signatureCosignatureTransaction進行簽署，輸出bobSignedTxSignature、bobSignedTxSignerPublicKey，然後將這些返回給Alice。 
 如果 Bob 可以創建所有簽名，那麼 Bob 也可以發佈公告而無需將其返回給 Alice。
 
-## 12.3 "Alice 的公告"
+## 12.3 Alice 的公告
 
 Alice 從 Bob 那裡收到 bobSignedTxSignature 和 bobSignedTxSignerPublicKey。同時，她預先準備了一個自己創建的 signedPayload。
 
