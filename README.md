@@ -79,7 +79,7 @@
 ### [11.限制](./11_restriction.md)
 
 - [11.1 帳戶限制](11_restriction.md#111-帳戶限制)
-- [11.2 馬賽克 全局限制](11_restriction.md#112-馬賽克 全局限制)
+- [11.2 馬賽克 全局限制](11_restriction.md#112-馬賽克全局限制)
 - [11.3 使用提示](11_restriction.md#113-使用提示)
 
 ### [12.離線簽名](./12_offline_signature.md)
