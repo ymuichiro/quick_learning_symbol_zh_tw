@@ -86,12 +86,12 @@
 
 - [12.1 交易創建](12_offline_signature.md#121-交易創建)
 - [12.2 Bob 共同簽名](12_offline_signature.md#122-共同簽名)
-- [12.3 Alice 公告](12_offline_signature.md#123-Alice 公告)
+- [12.3 Alice 公告](12_offline_signature.md#123-Alice公告)
 - [12.4 使用提示](12_offline_signature.md#124-使用提示)
 
 ### [13.驗證](./13_verify.md)
 
 - [13.1 交易驗證](13_verify.md#131-交易驗證)
 - [13.2 區塊頭驗證](13_verify.md#132-區塊頭驗證)
-- [13.3 帳戶・元數據 驗證](13_verify.md#133-帳戶・元數據 驗證)
+- [13.3 帳戶・元數據 驗證](13_verify.md#133-帳戶元數據驗證)
 - [13.4 使用提示](https://github.com/ymuichiro/quick_learning_symbol_zh_tw/blob/main/13_verify.md)
