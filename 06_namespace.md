@@ -31,7 +31,7 @@ console.log("rootNsRenatalFeeTotal:" + rootNsRenatalFeeTotal);
 持續時間由塊數指定； 一個區塊按30秒計算。
 最短租用期限為 30 天（最長為 1825 天）。
 
-可以使用以下的程式碼來計算獲取子命名空間的費用:
+可以使用以下的程式碼來計算獲取子命名空間的費用
 
 ```js
 childNamespaceRentalFee = rentalFees.effectiveChildNamespaceRentalFee.compact()
