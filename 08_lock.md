@@ -73,7 +73,7 @@ signedLockTx = alice.sign(hashLockTx, generationHash);
 await txRepo.announce(signedLockTx).toPromise();
 ```
 
-### 聚合綁定交易的公告。
+### 聚合綁定交易的公告
 
 與例如檢查後 Explorer，向網絡宣布保稅交易。
 ```js
