@@ -63,7 +63,7 @@ mosaicChangeTx = sym.MosaicSupplyChangeTransaction.create(
     networkType
 );
 ```
-如果supplyMutable:false，只有當整個馬賽克的供應量在發行者的賬戶中時，數量才能被更改。 .
+如果supplyMutable:false，只有當整個馬賽克的供應量在發行者的賬戶中時，數量才能被更改。 
 如果整除率 > 0，則將其定義為最小單位為 1 的整數值。
 （如果要創建 1.00 可整除性，請指定 100：2）
 
